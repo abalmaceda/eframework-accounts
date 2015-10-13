@@ -11,7 +11,7 @@ AutoForm.hooks({
       this.event.preventDefault();
 
       var addressBook = $(this.template.firstNode).closest('.address-book');
-      var accountId = ReactionCore.Collections.Accounts.findOne()._id;
+      var accountId = EFrameworkCore.Collections.Accounts.findOne()._id;
       var error;
 
       try {

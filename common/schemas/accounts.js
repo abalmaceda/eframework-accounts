@@ -1,8 +1,8 @@
 /**
-* ReactionCore Schemas Email
+* EFrameworkCore Schemas Email
 */
 
-ReactionCore.Schemas.Email = new SimpleSchema({
+EFrameworkCore.Schemas.Email = new SimpleSchema({
   provides: {
     type: String,
     defaultValue: "default",
@@ -20,10 +20,10 @@ ReactionCore.Schemas.Email = new SimpleSchema({
 });
 
 /**
-* ReactionCore Schemas Address
+* EFrameworkCore Schemas Address
 */
 
-ReactionCore.Schemas.Address = new SimpleSchema({
+EFrameworkCore.Schemas.Address = new SimpleSchema({
   _id: {
     type: String,
     defaultValue: Random.id(),
@@ -80,16 +80,16 @@ ReactionCore.Schemas.Address = new SimpleSchema({
     type: Boolean
   },
   metafields: {
-    type: [ReactionCore.Schemas.Metafield],
+    type: [EFrameworkCore.Schemas.Metafield],
     optional: true
   }
 });
 
 /**
-* ReactionCore Schemas Accounts
+* EFrameworkCore Schemas Accounts
 */
 
-ReactionCore.Schemas.Accounts = new SimpleSchema({
+EFrameworkCore.Schemas.Accounts = new SimpleSchema({
   "userId": {
     type: String,
     regEx: SimpleSchema.RegEx.Id,
@@ -103,12 +103,12 @@ ReactionCore.Schemas.Accounts = new SimpleSchema({
   },
   "shopId": {
     type: String,
-    autoValue: ReactionCore.shopIdAutoValue,
+    autoValue: EFrameworkCore.shopIdAutoValue,
     regEx: SimpleSchema.RegEx.Id,
     index: 1
   },
   "emails": {
-    type: [ReactionCore.Schemas.Email],
+    type: [EFrameworkCore.Schemas.Email],
     optional: true
   },
   "acceptsMarketing": {
@@ -130,11 +130,11 @@ ReactionCore.Schemas.Accounts = new SimpleSchema({
     optional: true
   },
   "profile.addressBook": {
-    type: [ReactionCore.Schemas.Address],
+    type: [EFrameworkCore.Schemas.Address],
     optional: true
   },
   "metafields": {
-    type: [ReactionCore.Schemas.Metafield],
+    type: [EFrameworkCore.Schemas.Metafield],
     optional: true
   },
   "createdAt": {
@@ -168,8 +168,8 @@ ReactionCore.Schemas.Accounts = new SimpleSchema({
 
 
 /**
-* ReactionCore Collections Accounts
+* EFrameworkCore Collections Accounts
 */
-ReactionCore.Collections.Accounts = new Mongo.Collection("Accounts");
+EFrameworkCore.Collections.Accounts = new Mongo.Collection("Accounts");
 
-ReactionCore.Collections.Accounts.attachSchema(ReactionCore.Schemas.Accounts);
+EFrameworkCore.Collections.Accounts.attachSchema(EFrameworkCore.Schemas.Accounts);

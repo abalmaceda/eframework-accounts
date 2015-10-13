@@ -1,4 +1,4 @@
-ReactionCore.registerPackage({
+EFrameworkCore.registerPackage({
   label: "Accounts",
   name: "reaction-accounts",
   icon: "fa fa-sign-in",

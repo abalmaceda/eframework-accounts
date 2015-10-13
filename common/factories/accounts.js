@@ -3,7 +3,7 @@
  *
  */
 
-Factory.define('account', ReactionCore.Collections.Accounts, {
+Factory.define('account', EFrameworkCore.Collections.Accounts, {
   shopId: Factory.get('shop'),
   userId: Factory.get('user'),
   emails: [{

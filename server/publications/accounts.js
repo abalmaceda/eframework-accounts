@@ -2,7 +2,7 @@
  * accounts
  */
 
-var Accounts = ReactionCore.Collections.Accounts;
+var Accounts = EFrameworkCore.Collections.Accounts;
 
 Meteor.publish('Accounts', function(userId) {
   check(userId, Match.OneOf(String, null));
@@ -10,13 +10,13 @@ Meteor.publish('Accounts', function(userId) {
   if (Roles.userIsInRole(this.userId, ['owner'], Roles.GLOBAL_GROUP)) {
     return Accounts.find();
   // shop admin gets accouns for just this shop
-  } else if (Roles.userIsInRole(this.userId, ['admin', 'owner'], ReactionCore.getShopId(this))) {
+  } else if (Roles.userIsInRole(this.userId, ['admin', 'owner'], EFrameworkCore.getShopId(this))) {
     return Accounts.find({
-      shopId: ReactionCore.getShopId(this)
+      shopId: EFrameworkCore.getShopId(this)
     });
   // regular users should get just their account
   } else {
-    return ReactionCore.Collections.Accounts.find({'userId': this.userId});
+    return EFrameworkCore.Collections.Accounts.find({'userId': this.userId});
   }
 });
 
@@ -37,7 +37,7 @@ Meteor.publish("UserProfile", function(profileUserId) {
 
   var permissions = ['dashboard/orders', 'owner', 'admin', 'dashboard/customers'];
 
-  if (profileUserId !== this.userId && (Roles.userIsInRole(this.userId, permissions, ReactionCore.getCurrentShop(this)._id || Roles.userIsInRole(this.userId, permissions, Roles.GLOBAL_GROUP)))) {
+  if (profileUserId !== this.userId && (Roles.userIsInRole(this.userId, permissions, EFrameworkCore.getCurrentShop(this)._id || Roles.userIsInRole(this.userId, permissions, Roles.GLOBAL_GROUP)))) {
     return Meteor.users.find({
       _id: profileUserId
     }, {

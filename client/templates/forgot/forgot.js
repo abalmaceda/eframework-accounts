@@ -29,7 +29,7 @@ Template.loginFormResetPasswordView.events({
     }
 
     // Make sure mail is properly configured for this shop before we end anything
-    ReactionCore.configureMailUrl();
+    EFrameworkCore.configureMailUrl();
 
     Accounts.forgotPassword({ email: emailAddress}, (error) => {
       // Show some message confirming result

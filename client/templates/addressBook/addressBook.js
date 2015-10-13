@@ -6,7 +6,7 @@
  */
 
 Template.addressBook.onCreated(function () {
-  let account = ReactionCore.Collections.Accounts.findOne({
+  let account = EFrameworkCore.Collections.Accounts.findOne({
     userId: Meteor.userId()
   });
 
@@ -34,7 +34,7 @@ Template.addressBook.onCreated(function () {
 
 Template.addressBook.helpers({
   account: function () {
-    let account = ReactionCore.Collections.Accounts.findOne({
+    let account = EFrameworkCore.Collections.Accounts.findOne({
       userId: Meteor.userId()
     });
     return account;
@@ -87,7 +87,7 @@ Template.addressBook.events({
     event.stopPropagation();
 
     Meteor.call("accounts/addressBookRemove", this, Meteor.userId(), function () {
-      let account = ReactionCore.Collections.Accounts.findOne({
+      let account = EFrameworkCore.Collections.Accounts.findOne({
         userId: Meteor.userId()
       });
 

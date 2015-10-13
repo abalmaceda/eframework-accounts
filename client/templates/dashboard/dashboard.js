@@ -7,7 +7,7 @@ Template.accountsDashboardControls.events({
    * @return {void}
    */
   "click [data-event-action=addShopMember]": () => {
-    ReactionCore.showActionView({
+    EFrameworkCore.showActionView({
       label: "Add Shop Member",
       template: "memberForm"
     });
@@ -52,7 +52,7 @@ Template.accountsDashboard.helpers({
     let members = [];
     let shopUsers;
 
-    if (ReactionCore.hasPermission("dashboard/accounts")) {
+    if (EFrameworkCore.hasPermission("dashboard/accounts")) {
       ShopMembers = Meteor.subscribe("ShopMembers");
 
       if (ShopMembers.ready()) {
@@ -70,21 +70,21 @@ Template.accountsDashboard.helpers({
           }
           member.user = user;
           member.username = user !== null ? user.username : void 0;
-          member.isAdmin = Roles.userIsInRole(user._id, "admin", ReactionCore.getShopId());
+          member.isAdmin = Roles.userIsInRole(user._id, "admin", EFrameworkCore.getShopId());
           member.roles = user.roles;
           member.services = user.services;
 
-          if (Roles.userIsInRole(member.userId, "dashboard", ReactionCore.getShopId())) {
+          if (Roles.userIsInRole(member.userId, "dashboard", EFrameworkCore.getShopId())) {
             member.role = "Dashboard";
           }
 
-          if (Roles.userIsInRole(member.userId, "admin", ReactionCore.getShopId())) {
+          if (Roles.userIsInRole(member.userId, "admin", EFrameworkCore.getShopId())) {
             member.role = "Administrator";
           }
 
-          if (Roles.userIsInRole(member.userId, "owner", ReactionCore.getShopId())) {
+          if (Roles.userIsInRole(member.userId, "owner", EFrameworkCore.getShopId())) {
             member.role = "Owner";
-          } else if (Roles.userIsInRole(member.userId, ReactionCore.getShopId(), ReactionCore.getShopId())) {
+          } else if (Roles.userIsInRole(member.userId, EFrameworkCore.getShopId(), EFrameworkCore.getShopId())) {
             member.role = "Guest";
           }
 

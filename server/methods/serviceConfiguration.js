@@ -13,7 +13,7 @@ Meteor.methods({
       dataToSave[field.property] = field.value
     });
 
-    if (ReactionCore.hasPermission(["dashboard/accounts"])) {
+    if (EFrameworkCore.hasPermission(["dashboard/accounts"])) {
       return ServiceConfiguration.configurations.upsert({
         service: service
       }, {

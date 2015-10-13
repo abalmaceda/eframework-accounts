@@ -32,7 +32,7 @@
 //       if (this.ready()) {
 //         if (Orders.findOne() || Meteor.userId()) {
 //           // if subscription has results or Meteor userId
-//           return ReactionCore.Collections.Orders.find({}, {sort: { createdAt: -1 }});
+//           return EFrameworkCore.Collections.Orders.find({}, {sort: { createdAt: -1 }});
 //         }
 
 //         this.render("unauthorized");

@@ -35,14 +35,14 @@ Accounts.registerLoginHandler(function (options) {
  */
 
 Accounts.onCreateUser(function (options, user) {
-  let shop = ReactionCore.getCurrentShop();
-  let shopId = ReactionCore.getShopId();
+  let shop = EFrameworkCore.getCurrentShop();
+  let shopId = EFrameworkCore.getShopId();
   let roles = {};
 
   // clone before adding roles
   let account = _.clone(user);
   account.userId = user._id;
-  ReactionCore.Collections.Accounts.insert(account);
+  EFrameworkCore.Collections.Accounts.insert(account);
   // init default user roles
   if (shop) {
     if (user.services === undefined) {
@@ -72,7 +72,7 @@ Accounts.onLogin(function (options) {
       $pullAll: {}
     };
 
-    update.$pullAll["roles." + ReactionCore.getShopId()] = ["anonymous"];
+    update.$pullAll["roles." + EFrameworkCore.getShopId()] = ["anonymous"];
 
     Meteor.users.update({
       _id: options.user._id
@@ -80,10 +80,10 @@ Accounts.onLogin(function (options) {
       multi: true
     });
     // debug info
-    ReactionCore.Log.debug("removed anonymous role from user: " + options.user._id);
+    EFrameworkCore.Log.debug("removed anonymous role from user: " + options.user._id);
 
     // onLogin, we want to merge session cart into user cart.
-    cart = ReactionCore.Collections.Cart.findOne({userId: options.user._id});
+    cart = EFrameworkCore.Collections.Cart.findOne({userId: options.user._id});
     Meteor.call("cart/mergeCart", cart._id);
 
     // logged in users need an additonal worfklow push to get started with checkoutLogin
@@ -112,12 +112,12 @@ Meteor.methods({
    */
   "accounts/addressBookAdd": function (doc, accountId) {
     this.unblock();
-    check(doc, ReactionCore.Schemas.Address);
+    check(doc, EFrameworkCore.Schemas.Address);
     check(accountId, String);
-    ReactionCore.Schemas.Address.clean(doc);
+    EFrameworkCore.Schemas.Address.clean(doc);
     if (doc.isShippingDefault || doc.isBillingDefault) {
       if (doc.isShippingDefault) {
-        ReactionCore.Collections.Accounts.update({
+        EFrameworkCore.Collections.Accounts.update({
           "_id": accountId,
           "userId": accountId,
           "profile.addressBook.isShippingDefault": true
@@ -128,7 +128,7 @@ Meteor.methods({
         });
       }
       if (doc.isBillingDefault) {
-        ReactionCore.Collections.Accounts.update({
+        EFrameworkCore.Collections.Accounts.update({
           "_id": accountId,
           "userId": accountId,
           "profile.addressBook.isBillingDefault": true
@@ -139,7 +139,7 @@ Meteor.methods({
         });
       }
     }
-    ReactionCore.Collections.Accounts.upsert(accountId, {
+    EFrameworkCore.Collections.Accounts.upsert(accountId, {
       $set: {
         userId: accountId
       },
@@ -155,11 +155,11 @@ Meteor.methods({
    */
   "accounts/addressBookUpdate": function (doc, accountId) {
     this.unblock();
-    check(doc, ReactionCore.Schemas.Address);
+    check(doc, EFrameworkCore.Schemas.Address);
     check(accountId, String);
     if (doc.isShippingDefault || doc.isBillingDefault) {
       if (doc.isShippingDefault) {
-        ReactionCore.Collections.Accounts.update({
+        EFrameworkCore.Collections.Accounts.update({
           "_id": accountId,
           "profile.addressBook.isShippingDefault": true
         }, {
@@ -169,7 +169,7 @@ Meteor.methods({
         });
       }
       if (doc.isBillingDefault) {
-        ReactionCore.Collections.Accounts.update({
+        EFrameworkCore.Collections.Accounts.update({
           "_id": accountId,
           "profile.addressBook.isBillingDefault": true
         }, {
@@ -179,7 +179,7 @@ Meteor.methods({
         });
       }
     }
-    ReactionCore.Collections.Accounts.update({
+    EFrameworkCore.Collections.Accounts.update({
       "_id": accountId,
       "profile.addressBook._id": doc._id
     }, {
@@ -195,9 +195,9 @@ Meteor.methods({
    */
   "accounts/addressBookRemove": function (doc, accountId) {
     this.unblock();
-    check(doc, ReactionCore.Schemas.Address);
+    check(doc, EFrameworkCore.Schemas.Address);
     check(accountId, String);
-    ReactionCore.Collections.Accounts.update({
+    EFrameworkCore.Collections.Accounts.update({
       "_id": accountId,
       "profile.addressBook._id": doc._id
     }, {
@@ -227,11 +227,11 @@ Meteor.methods({
     this.unblock();
     shop = Shops.findOne(shopId);
 
-    if (!ReactionCore.hasOwnerAccess()) {
+    if (!EFrameworkCore.hasOwnerAccess()) {
       throw new Meteor.Error(403, "Access denied");
     }
 
-    ReactionCore.configureMailUrl();
+    EFrameworkCore.configureMailUrl();
 
     if (shop && email && name) {
       let currentUser = Meteor.user();
@@ -318,7 +318,7 @@ Meteor.methods({
     check(shop, Object);
     this.unblock();
     email = Meteor.user(userId).emails[0].address;
-    ReactionCore.configureMailUrl();
+    EFrameworkCore.configureMailUrl();
     SSR.compileTemplate("welcomeNotification", Assets.getText("server/emailTemplates/welcomeNotification.html"));
     Email.send({
       to: email,
@@ -351,7 +351,7 @@ Meteor.methods({
     try {
       return Roles.addUsersToRoles(userId, permissions, group);
     } catch (error) {
-      return ReactionCore.Log.info(error);
+      return EFrameworkCore.Log.info(error);
     }
   },
 
@@ -366,7 +366,7 @@ Meteor.methods({
     try {
       return Roles.removeUsersFromRoles(userId, permissions, group);
     } catch (error) {
-      ReactionCore.Log.info(error);
+      EFrameworkCore.Log.info(error);
       throw new Meteor.Error(403, "Access Denied");
     }
   },
@@ -382,7 +382,7 @@ Meteor.methods({
     try {
       return Roles.setUserRoles(userId, permissions, group);
     } catch (error) {
-      return ReactionCore.Log.info(error);
+      return EFrameworkCore.Log.info(error);
     }
   }
 });

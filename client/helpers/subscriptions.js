@@ -1,5 +1,5 @@
-ReactionCore.Subscriptions.Account =
+EFrameworkCore.Subscriptions.Account =
   Meteor.subscribe("Accounts", Meteor.userId());
 
-ReactionCore.Subscriptions.Profile =
+EFrameworkCore.Subscriptions.Profile =
   Meteor.subscribe("UserProfile", Meteor.userId());

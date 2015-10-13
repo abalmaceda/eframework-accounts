@@ -5,7 +5,7 @@
  */
 Meteor.publish("ShopMembers", function() {
   let permissions = ["dashboard/orders", "owner", "admin", "dashboard/customers"];
-  let shopId = ReactionCore.getShopId(this);
+  let shopId = EFrameworkCore.getShopId(this);
 
   if (Roles.userIsInRole(this.userId, permissions, shopId)) {
     let users = Meteor.users.find({
@@ -49,6 +49,6 @@ Meteor.publish("ShopMembers", function() {
     return users;
   }
 
-  ReactionCore.Log.info("ShopMembers access denied");
+  EFrameworkCore.Log.info("ShopMembers access denied");
   return [];
 });

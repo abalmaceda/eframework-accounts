@@ -22,7 +22,7 @@ Template.loginDropdown.events({
     Meteor.logoutOtherClients();
     Meteor.logout((error) => {
       if (error) {
-        ReactionCore.Log.warn("Failed to logout.", error);
+        EFrameworkCore.Log.warn("Failed to logout.", error);
         return Meteor._debug(error);
       }
     });
@@ -50,7 +50,7 @@ Template.loginDropdown.events({
           throw new Meteor.Error("createProduct error", error);
         } else if (productId) {
           currentTagId = Session.get("currentTag");
-          currentTag = ReactionCore.Collections.Tags.findOne(currentTagId);
+          currentTag = EFrameworkCore.Collections.Tags.findOne(currentTagId);
           if (currentTag) {
             Meteor.call("products/updateProductTags", productId, currentTag.name, currentTagId);
           }

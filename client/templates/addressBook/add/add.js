@@ -1,7 +1,7 @@
 Template.addressBookAdd.helpers({
   thisAddress: function () {
     let thisAddress = {};
-    let account = ReactionCore.Collections.Accounts.findOne();
+    let account = EFrameworkCore.Collections.Accounts.findOne();
     if (account) {
       if (account.profile) {
         if (account.profile.name) {
@@ -19,7 +19,7 @@ Template.addressBookAdd.helpers({
   },
 
   hasAddressBookEntries: function () {
-    let account = ReactionCore.Collections.Accounts.findOne({
+    let account = EFrameworkCore.Collections.Accounts.findOne({
       userId: Meteor.userId()
     });
     if (account) {
@@ -57,7 +57,7 @@ AutoForm.hooks({
       this.event.preventDefault();
       let accountId;
       let addressBook = $(this.template.firstNode).closest(".address-book");
-      let account = ReactionCore.Collections.Accounts.findOne();
+      let account = EFrameworkCore.Collections.Accounts.findOne();
       accountId = account._id;
 
       if (!insertDoc._id) {

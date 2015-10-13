@@ -1,12 +1,12 @@
 /**
 * shopMember helpers
 * permissions / roles controls
-* we use userInRole instead of ReactionCore intentionally
+* we use userInRole instead of EFrameworkCore intentionally
 * to check each users permissions
 */
 Template.member.events({
   "click [data-event-action=showMemberSettings]": function () {
-    ReactionCore.showActionView({
+    EFrameworkCore.showActionView({
       label: "Edit Member",
       data: this,
       template: "memberSettings"
@@ -40,7 +40,7 @@ Template.memberSettings.helpers({
   },
   shopLabel: function(shopId) {
     var _ref;
-    return (_ref = ReactionCore.Collections.Shops.findOne({
+    return (_ref = EFrameworkCore.Collections.Shops.findOne({
       '_id': Template.currentData()
     })) != null ? _ref.name : void 0;
   },
@@ -50,7 +50,7 @@ Template.memberSettings.helpers({
 
     var shopId = Template.currentData();
 
-    var packages = ReactionCore.Collections.Packages.find({
+    var packages = EFrameworkCore.Collections.Packages.find({
       'shopId': shopId
     });
 

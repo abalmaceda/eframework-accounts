@@ -6,7 +6,7 @@ Template.addressBookForm.helpers({
   countryOptions: function() {
     var country, locale, options, ref, shop;
     options = [];
-    shop = ReactionCore.Collections.Shops.findOne();
+    shop = EFrameworkCore.Collections.Shops.findOne();
     ref = shop != null ? shop.locales.countries : void 0;
     for (country in ref) {
       locale = ref[country];
@@ -19,7 +19,7 @@ Template.addressBookForm.helpers({
   },
   statesForCountry: function() {
     var locale, options, ref, selectedCountry, shop, state;
-    shop = ReactionCore.Collections.Shops.findOne();
+    shop = EFrameworkCore.Collections.Shops.findOne();
     selectedCountry = Session.get('addressBookCountry' || AutoForm.getFieldValue('country'));
     if (!selectedCountry) {
       return false;
