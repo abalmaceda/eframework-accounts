@@ -1,70 +1,71 @@
-
+/* TODO */
 function capitalize(str) {
-  let finalString = str === null ? "" : String(str);
-  return finalString.charAt(0).toUpperCase() + str.slice(1);
+	let finalString = str === null ? "" : String(str);
+	return finalString.charAt(0).toUpperCase() + str.slice(1);
 }
 
-ReactionServiceHelper = class ReactionServiceHelper {
+/* TODO */
+EFrameworkServiceHelper = class EFrameworkServiceHelper {
 
-  construct() {}
+	construct() {}
 
-  availableServices() {
-    let services = Package["accounts-oauth"] ? Accounts.oauth.serviceNames() : [];
-    services.sort();
+	availableServices() {
+		let services = Package["accounts-oauth"] ? Accounts.oauth.serviceNames() : [];
+		services.sort();
 
-    return services;
-  }
+		return services;
+	}
 
-  capitalizedServiceName(name) {
-    if (name === "meteor-developer") {
-      return "MeteorDeveloperAccount";
-    }
+	capitalizedServiceName(name) {
+		if (name === "meteor-developer") {
+			return "MeteorDeveloperAccount";
+		}
 
-    return capitalize(name);
-  }
+		return capitalize(name);
+	}
 
-  configFieldsForService(name) {
-    let capitalizedName = this.capitalizedServiceName(name);
-    let template = Template[`configureLoginServiceDialogFor${capitalizedName}`];
+	configFieldsForService(name) {
+		let capitalizedName = this.capitalizedServiceName(name);
+		let template = Template[`configureLoginServiceDialogFor${capitalizedName}`];
 
-    if (template) {
-      let fields = template.fields();
+		if (template) {
+			let fields = template.fields();
 
-      return _.map(fields, (field) => {
-        if (!field.type) {
-          field.type = field.property === "secret" ? "password" : "text";
-        }
+			return _.map(fields, (field) => {
+				if (!field.type) {
+					field.type = field.property === "secret" ? "password" : "text";
+				}
 
-        return _.extend(field, {
-          type: field.type
-        });
-      });
-    }
+				return _.extend(field, {
+					type: field.type
+				});
+			});
+		}
 
-    return [];
-  }
+		return [];
+	}
 
-  services(extendEach) {
-    let services = this.availableServices();
-    let configurations = ServiceConfiguration.configurations.find().fetch();
+	services(extendEach) {
+		let services = this.availableServices();
+		let configurations = ServiceConfiguration.configurations.find().fetch();
 
-    return _.map(services, (name) => {
-      let matchingConfigurations = _.where(configurations, {service: name});
-      let service = {
-        name: name,
-        label: this.capitalizedServiceName(name),
-        fields: this.configFieldsForService(name)
-      };
+		return _.map(services, (name) => {
+			let matchingConfigurations = _.where(configurations, {service: name});
+			let service = {
+				name: name,
+				label: this.capitalizedServiceName(name),
+				fields: this.configFieldsForService(name)
+			};
 
-      if (matchingConfigurations.length) {
-        service = _.extend(service, matchingConfigurations[0]);
-      }
+			if (matchingConfigurations.length) {
+				service = _.extend(service, matchingConfigurations[0]);
+			}
 
-      if (_.isFunction(extendEach)) {
-        service = _.extend(service, extendEach(service) || {});
-      }
+			if (_.isFunction(extendEach)) {
+				service = _.extend(service, extendEach(service) || {});
+			}
 
-      return service;
-    });
-  }
+			return service;
+		});
+	}
 };

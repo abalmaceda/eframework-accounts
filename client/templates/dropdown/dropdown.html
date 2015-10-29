@@ -1,26 +1,28 @@
 <!-- TODO -->
 <template name="loginDropdown">
-  <div class="dropdown" role="menu">
-    {{#if currentUser}}
-    <div class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000">
-      {{> avatar user=currentUser class="circular-icon" size="small" shape="circle"}}
-      <span id="logged-in-display-name"> {{displayName}}<b class="caret"></b></span>
-    </div>
-    <div class="dropdown-menu pull-right" role="menu">
-      {{> userDropdown}}
-    </div>
-    {{else}}
-    <div class="accounts-dropdown" data-event-category="accounts" data-event-action="accounts-dropdown-click">
-      <div class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000">
-        <span data-i18n="accountsUI.signIn">Sign In</span><b class="caret"></b></div>
-      <div class="accounts-dialog accounts-layout dropdown-menu pull-right">
-        {{> loginForm}}
-      </div>
-    </div>
-    {{/if}}
-  </div>
+	<div class="dropdown" role="menu">
+		{{#if currentUser}}
+			<div class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000">
+				{{> avatar user=currentUser class="circular-icon" size="small" shape="circle"}}
+				<span id="logged-in-display-name"> {{displayName}}<b class="caret"></b></span>
+			</div>
+			<div class="dropdown-menu pull-right" role="menu">
+				{{> userDropdown}}
+			</div>
+		{{else}}
+			<div class="accounts-dropdown" data-event-category="accounts" data-event-action="accounts-dropdown-click">
+				<div class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000">
+					<span data-i18n="accountsUI.signIn">Sign In</span><b class="caret"></b>
+				</div>
+				<div class="accounts-dialog accounts-layout dropdown-menu pull-right">
+					{{> loginForm}}
+				</div>
+			</div>
+		{{/if}}
+	</div>
 </template>
 
+<!-- TODO -->
 <template name="userDropdown">
   <div class="user-accounts-dropdown">
     <div class="user-accounts-dropdown-content">
@@ -31,11 +33,12 @@
 
 </template>
 
+<!-- TODO -->
 <template name="accountsDropdownApps">
   <ul class="user-accounts-dropdown-apps">
     {{> userAccountsDropdown}}
     <!--administrative shortcut icons -->
-<!--    {{#each reactionApps provides='shortcut' enabled=true}} {{#if hasPermission route}}
+{{#each reactionApps provides='shortcut' enabled=true}} {{#if hasPermission route}}
     <li class="dropdown-apps-icon">
       <a id="{{route}}" title="{{label}}">
         <i class="{{icon}}"></i>
@@ -44,13 +47,14 @@
         </span>
       </a>
     </li>
-    {{/if}} {{/each}}-->
+    {{/if}} {{/each}}
   </ul>
 </template>
 
+<!-- TODO -->
 <template name="userAccountsDropdown">
   <!--user account shortcut icons -->
-  <!--{{#each reactionApps provides='userAccountDropdown' enabled=true}} {{#if hasPermission route}}
+{{#each reactionApps provides='userAccountDropdown' enabled=true}} {{#if hasPermission route}}
   <li class="dropdown-apps-icon">
     <a id="{{route}}" title="{{label}}">
       <i class="{{icon}}"></i>
@@ -61,5 +65,5 @@
   </li>
   {{/if}} {{else}}
   <span data-i18n="accountsUI.signedIn">You are signed in.</span>
-  {{/each}}-->
+  {{/each}}
 </template>

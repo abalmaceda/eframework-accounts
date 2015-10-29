@@ -1,3 +1,5 @@
+/* TODO: entender codigo */
+
 EFrameworkCore.registerPackage({
   label: "Accounts",
   name: "reaction-accounts",

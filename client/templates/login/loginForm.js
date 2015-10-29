@@ -1,3 +1,5 @@
+/* TODO */
+
 // ============================================================================
 // Login form
 //
@@ -13,16 +15,17 @@ function capitalize(str) {
 // ----------------------------------------------------------------------------
 // Login Form helpers
 //
-
+/* TODO: ver esta funcion */
 Template.loginForm.helpers({
-
-  /**
-   * Login form current view
-   * @return {String} Name of the template to use as the current view.
-   */
-  loginFormCurrentView() {
-    return Template.instance().loginFormCurrentView.get();
-  },
+	/* TODO: ver esta definicion */
+	/**
+	* Login form current view
+	* @return {String} Nombre del Template para utilizarlo como la vista actual
+	*/
+	loginFormCurrentView() {
+		/* TODO : entender que es lo que hace aca */
+		return Template.instance().loginFormCurrentView.get();
+	},
 
   /**
    * Unique id to use on form elements
@@ -37,26 +40,29 @@ Template.loginForm.helpers({
 /**
  * Login form onCreated
  */
+ /* TODO : emtemder el codigo */
 Template.loginForm.onCreated(function () {
-  let template = Template.instance();
-  let currentData = Template.currentData();
-  let startView = "loginFormSignInView";
+	let template = Template.instance();
+	let currentData = Template.currentData();
+	let startView = "loginFormSignInView";
 
-  if (currentData) {
-    if (currentData.startView) {
-      startView = currentData.startView;
-    }
-  }
+	if (currentData) {
+		if (currentData.startView) {
+			startView = currentData.startView;
+		}
+	}
 
-  template.loginFormCurrentView = new ReactiveVar(startView);
-  template.uniqueId = Random.id();
-  template.credentials = {};
+	/* TODO : entender este código */
+	template.loginFormCurrentView = new ReactiveVar(startView);
+	template.uniqueId = Random.id();
+	template.credentials = {};
 });
 
 /**
  * Login Form events
  * These events are shared across all login form views and subviews
  */
+ /*TODO*/
 Template.loginForm.events({
 
   /**
@@ -65,6 +71,7 @@ Template.loginForm.events({
    * @param  {Template} template Blaze Template instance
    * @return {void}
    */
+   /*TODO*/
   "click [data-event-action=signIn]": function (event, template) {
     event.preventDefault();
     event.stopPropagation();
@@ -113,27 +120,27 @@ Template.loginForm.events({
  */
 Template.loginFormServiceButton.events({
 
-  /**
-   * Event: Click (click on the service button to sign in / sign up)
-   * @param  {Event}    event    jQuery Event
-   * @param  {Template} template Blaze Template instance
-   * @return {void}
-   */
-  "click button": (event, template) => {
-    let serviceName = template.data.name;
+	/**
+	* Event: Click (click on the service button to sign in / sign up)
+	* @param  {Event}    event    jQuery Event
+	* @param  {Template} template Blaze Template instance
+	* @return {void}
+	*/
+	"click button": (event, template) => {
+	let serviceName = template.data.name;
 
-    // Get proper service name
-    if (serviceName === "meteor-developer") {
-      serviceName = "MeteorDeveloperAccount";
-    } else {
-      serviceName = capitalize(serviceName);
-    }
+		// Get proper service name
+		if (serviceName === "meteor-developer") {
+			serviceName = "MeteorDeveloperAccount";
+		} else {
+			serviceName = capitalize(serviceName);
+		}
 
-    let loginWithService = Meteor["loginWith" + serviceName];
-    let options = {}; // use default scope unless specified
+		let loginWithService = Meteor["loginWith" + serviceName];
+		let options = {}; // use default scope unless specified
 
-    loginWithService(options, () => {
-      // TODO: add error message for failed login attempt
-    });
-  }
+		loginWithService(options, () => {
+			// TODO: add error message for failed login attempt
+		});
+	}
 });

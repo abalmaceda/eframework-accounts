@@ -1,6 +1,4 @@
-
-
-
+/* TODO : comentar todo */
 window.LoginFormValidation = {
   username: function(username) {
 

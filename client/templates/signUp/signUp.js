@@ -1,13 +1,14 @@
-
+/* TODO */
 /**
  * onCreated: Login form sign up view
  */
+ /* TODO */
 Template.loginFormSignUpView.onCreated(() => {
-  let template = Template.instance();
+	let template = Template.instance();
 
-  template.uniqueId = Random.id();
-  template.formMessages = new ReactiveVar({});
-  template.type = "signUp";
+	template.uniqueId = Random.id();
+	template.formMessages = new ReactiveVar({});
+	template.type = "signUp";
 });
 
 /**
@@ -65,15 +66,13 @@ Template.loginFormSignUpView.events({
       password: password
     };
 
-    Accounts.createUser(newUserData, function (error) {
-      if (error) {
-        // Show some error message
-        templateInstance.formMessages.set({
-          alerts: [error]
-        });
-      } else {
-        // Close dropdown or navigate to page
-      }
-    });
+	Accounts.createUser(newUserData, function (error) {
+		if (error) {
+			// Show some error message
+			templateInstance.formMessages.set({ alerts: [error] });
+		} else {
+			// Close dropdown or navigate to page
+		}
+	});
   }
 });

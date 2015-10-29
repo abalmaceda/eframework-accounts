@@ -1,3 +1,6 @@
+/* TODO : verificar todo el codigo */
+
+
 /**
  * Reaction Accounts handlers
  * creates a login type "anonymous"
@@ -34,27 +37,27 @@ Accounts.registerLoginHandler(function (options) {
  * see: http://docs.meteor.com/#/full/accounts_oncreateuser
  */
 
-Accounts.onCreateUser(function (options, user) {
-  let shop = EFrameworkCore.getCurrentShop();
-  let shopId = EFrameworkCore.getShopId();
-  let roles = {};
+// Accounts.onCreateUser(function (options, user) {
+//   let shop = EFrameworkCore.getCurrentShop();
+//   let shopId = EFrameworkCore.getShopId();
+//   let roles = {};
 
-  // clone before adding roles
-  let account = _.clone(user);
-  account.userId = user._id;
-  EFrameworkCore.Collections.Accounts.insert(account);
-  // init default user roles
-  if (shop) {
-    if (user.services === undefined) {
-      roles[shopId] = shop.defaultVisitorRole || ["anonymous", "guest"];
-    } else {
-      roles[shopId] = shop.defaultRoles || ["guest", "account/profile"];
-    }
-  }
-  // assign default user roles
-  user.roles = roles;
-  return user;
-});
+//   // clone before adding roles
+//   let account = _.clone(user);
+//   account.userId = user._id;
+//   EFrameworkCore.Collections.Accounts.insert(account);
+//   // init default user roles
+//   if (shop) {
+//     if (user.services === undefined) {
+//       roles[shopId] = shop.defaultVisitorRole || ["anonymous", "guest"];
+//     } else {
+//       roles[shopId] = shop.defaultRoles || ["guest", "account/profile"];
+//     }
+//   }
+//   // assign default user roles
+//   user.roles = roles;
+//   return user;
+// });
 
 /**
  * Accounts.onLogin event
@@ -83,14 +86,18 @@ Accounts.onLogin(function (options) {
     EFrameworkCore.Log.debug("removed anonymous role from user: " + options.user._id);
 
     // onLogin, we want to merge session cart into user cart.
+    /* TODO : descomentar 
     cart = EFrameworkCore.Collections.Cart.findOne({userId: options.user._id});
     Meteor.call("cart/mergeCart", cart._id);
+    */
 
+    /* TODO: descomentar */
     // logged in users need an additonal worfklow push to get started with checkoutLogin
-    return Meteor.call("workflow/pushCartWorkflow", "coreCartWorkflow", "checkoutLogin");
+    //return Meteor.call("workflow/pushCartWorkflow", "coreCartWorkflow", "checkoutLogin");
   }
 });
 
+/* TODO : entender por que este codigo tiene funciones "string" */
 /**
  * Reaction Account Methods
  */
@@ -150,188 +157,188 @@ Meteor.methods({
     return doc;
   },
 
-  /*
-   * update existing address in user"s profile
-   */
-  "accounts/addressBookUpdate": function (doc, accountId) {
-    this.unblock();
-    check(doc, EFrameworkCore.Schemas.Address);
-    check(accountId, String);
-    if (doc.isShippingDefault || doc.isBillingDefault) {
-      if (doc.isShippingDefault) {
-        EFrameworkCore.Collections.Accounts.update({
-          "_id": accountId,
-          "profile.addressBook.isShippingDefault": true
-        }, {
-          $set: {
-            "profile.addressBook.$.isShippingDefault": false
-          }
-        });
-      }
-      if (doc.isBillingDefault) {
-        EFrameworkCore.Collections.Accounts.update({
-          "_id": accountId,
-          "profile.addressBook.isBillingDefault": true
-        }, {
-          $set: {
-            "profile.addressBook.$.isBillingDefault": false
-          }
-        });
-      }
-    }
-    EFrameworkCore.Collections.Accounts.update({
-      "_id": accountId,
-      "profile.addressBook._id": doc._id
-    }, {
-      $set: {
-        "profile.addressBook.$": doc
-      }
-    });
-    return doc;
-  },
+  // /*
+  //  * update existing address in user"s profile
+  //  */
+  // "accounts/addressBookUpdate": function (doc, accountId) {
+  //   this.unblock();
+  //   check(doc, EFrameworkCore.Schemas.Address);
+  //   check(accountId, String);
+  //   if (doc.isShippingDefault || doc.isBillingDefault) {
+  //     if (doc.isShippingDefault) {
+  //       EFrameworkCore.Collections.Accounts.update({
+  //         "_id": accountId,
+  //         "profile.addressBook.isShippingDefault": true
+  //       }, {
+  //         $set: {
+  //           "profile.addressBook.$.isShippingDefault": false
+  //         }
+  //       });
+  //     }
+  //     if (doc.isBillingDefault) {
+  //       EFrameworkCore.Collections.Accounts.update({
+  //         "_id": accountId,
+  //         "profile.addressBook.isBillingDefault": true
+  //       }, {
+  //         $set: {
+  //           "profile.addressBook.$.isBillingDefault": false
+  //         }
+  //       });
+  //     }
+  //   }
+  //   EFrameworkCore.Collections.Accounts.update({
+  //     "_id": accountId,
+  //     "profile.addressBook._id": doc._id
+  //   }, {
+  //     $set: {
+  //       "profile.addressBook.$": doc
+  //     }
+  //   });
+  //   return doc;
+  // },
 
-  /*
-   * remove existing address in user"s profile
-   */
-  "accounts/addressBookRemove": function (doc, accountId) {
-    this.unblock();
-    check(doc, EFrameworkCore.Schemas.Address);
-    check(accountId, String);
-    EFrameworkCore.Collections.Accounts.update({
-      "_id": accountId,
-      "profile.addressBook._id": doc._id
-    }, {
-      $pull: {
-        "profile.addressBook": {
-          _id: doc._id
-        }
-      }
-    });
-    return doc;
-  },
+  // /*
+  //  * remove existing address in user"s profile
+  //  */
+  // "accounts/addressBookRemove": function (doc, accountId) {
+  //   this.unblock();
+  //   check(doc, EFrameworkCore.Schemas.Address);
+  //   check(accountId, String);
+  //   EFrameworkCore.Collections.Accounts.update({
+  //     "_id": accountId,
+  //     "profile.addressBook._id": doc._id
+  //   }, {
+  //     $pull: {
+  //       "profile.addressBook": {
+  //         _id: doc._id
+  //       }
+  //     }
+  //   });
+  //   return doc;
+  // },
 
-  /*
-   * invite new admin users
-   * (not consumers) to secure access in the dashboard
-   * to permissions as specified in packages/roles
-   */
-  "accounts/inviteShopMember": function (shopId, email, name) {
-    let currentUserName;
-    let shop;
-    let token;
-    let user;
-    let userId;
-    check(shopId, String);
-    check(email, String);
-    check(name, String);
-    this.unblock();
-    shop = Shops.findOne(shopId);
+  // /*
+  //  * invite new admin users
+  //  * (not consumers) to secure access in the dashboard
+  //  * to permissions as specified in packages/roles
+  //  */
+  // "accounts/inviteShopMember": function (shopId, email, name) {
+  //   let currentUserName;
+  //   let shop;
+  //   let token;
+  //   let user;
+  //   let userId;
+  //   check(shopId, String);
+  //   check(email, String);
+  //   check(name, String);
+  //   this.unblock();
+  //   shop = Shops.findOne(shopId);
 
-    if (!EFrameworkCore.hasOwnerAccess()) {
-      throw new Meteor.Error(403, "Access denied");
-    }
+  //   if (!EFrameworkCore.hasOwnerAccess()) {
+  //     throw new Meteor.Error(403, "Access denied");
+  //   }
 
-    EFrameworkCore.configureMailUrl();
+  //   EFrameworkCore.configureMailUrl();
 
-    if (shop && email && name) {
-      let currentUser = Meteor.user();
-      if (currentUser) {
-        if (currentUser.profile) {
-          currentUserName = currentUser.profile.name;
-        } else {
-          currentUserName = currentUser.username;
-        }
-      } else {
-        currentUserName = "Admin";
-      }
+  //   if (shop && email && name) {
+  //     let currentUser = Meteor.user();
+  //     if (currentUser) {
+  //       if (currentUser.profile) {
+  //         currentUserName = currentUser.profile.name;
+  //       } else {
+  //         currentUserName = currentUser.username;
+  //       }
+  //     } else {
+  //       currentUserName = "Admin";
+  //     }
 
-      user = Meteor.users.findOne({
-        "emails.address": email
-      });
+  //     user = Meteor.users.findOne({
+  //       "emails.address": email
+  //     });
 
-      if (!user) {
-        userId = Accounts.createUser({
-          email: email,
-          username: name
-        });
-        user = Meteor.users.findOne(userId);
-        if (!user) {
-          throw new Error("Can't find user");
-        }
-        token = Random.id();
-        Meteor.users.update(userId, {
-          $set: {
-            "services.password.reset": {
-              token: token,
-              email: email,
-              when: new Date()
-            }
-          }
-        });
-        SSR.compileTemplate("shopMemberInvite", Assets.getText("server/emailTemplates/shopMemberInvite.html"));
-        try {
-          Email.send({
-            to: email,
-            from: currentUserName + " <" + shop.emails[0] + ">",
-            subject: "You have been invited to join " + shop.name,
-            html: SSR.render("shopMemberInvite", {
-              homepage: Meteor.absoluteUrl(),
-              shop: shop,
-              currentUserName: currentUserName,
-              invitedUserName: name,
-              url: Accounts.urls.enrollAccount(token)
-            })
-          });
-        } catch (_error) {
-          throw new Meteor.Error(403, "Unable to send invitation email.");
-        }
-      } else {
-        SSR.compileTemplate("shopMemberInvite", Assets.getText("server/emailTemplates/shopMemberInvite.html"));
-        try {
-          Email.send({
-            to: email,
-            from: currentUserName + " <" + shop.emails[0] + ">",
-            subject: "You have been invited to join the " + shop.name,
-            html: SSR.render("shopMemberInvite", {
-              homepage: Meteor.absoluteUrl(),
-              shop: shop,
-              currentUserName: currentUserName,
-              invitedUserName: name,
-              url: Meteor.absoluteUrl()
-            })
-          });
-        } catch (_error) {
-          throw new Meteor.Error(403, "Unable to send invitation email.");
-        }
-      }
-    } else {
-      throw new Meteor.Error(403, "Access denied");
-    }
-    return true;
-  },
+  //     if (!user) {
+  //       userId = Accounts.createUser({
+  //         email: email,
+  //         username: name
+  //       });
+  //       user = Meteor.users.findOne(userId);
+  //       if (!user) {
+  //         throw new Error("Can't find user");
+  //       }
+  //       token = Random.id();
+  //       Meteor.users.update(userId, {
+  //         $set: {
+  //           "services.password.reset": {
+  //             token: token,
+  //             email: email,
+  //             when: new Date()
+  //           }
+  //         }
+  //       });
+  //       SSR.compileTemplate("shopMemberInvite", Assets.getText("server/emailTemplates/shopMemberInvite.html"));
+  //       try {
+  //         Email.send({
+  //           to: email,
+  //           from: currentUserName + " <" + shop.emails[0] + ">",
+  //           subject: "You have been invited to join " + shop.name,
+  //           html: SSR.render("shopMemberInvite", {
+  //             homepage: Meteor.absoluteUrl(),
+  //             shop: shop,
+  //             currentUserName: currentUserName,
+  //             invitedUserName: name,
+  //             url: Accounts.urls.enrollAccount(token)
+  //           })
+  //         });
+  //       } catch (_error) {
+  //         throw new Meteor.Error(403, "Unable to send invitation email.");
+  //       }
+  //     } else {
+  //       SSR.compileTemplate("shopMemberInvite", Assets.getText("server/emailTemplates/shopMemberInvite.html"));
+  //       try {
+  //         Email.send({
+  //           to: email,
+  //           from: currentUserName + " <" + shop.emails[0] + ">",
+  //           subject: "You have been invited to join the " + shop.name,
+  //           html: SSR.render("shopMemberInvite", {
+  //             homepage: Meteor.absoluteUrl(),
+  //             shop: shop,
+  //             currentUserName: currentUserName,
+  //             invitedUserName: name,
+  //             url: Meteor.absoluteUrl()
+  //           })
+  //         });
+  //       } catch (_error) {
+  //         throw new Meteor.Error(403, "Unable to send invitation email.");
+  //       }
+  //     }
+  //   } else {
+  //     throw new Meteor.Error(403, "Access denied");
+  //   }
+  //   return true;
+  // },
 
-  /*
-   * send an email to consumers on sign up
-   */
-  "accounts/sendWelcomeEmail": function (shopId, userId) {
-    let email;
-    check(shop, Object);
-    this.unblock();
-    email = Meteor.user(userId).emails[0].address;
-    EFrameworkCore.configureMailUrl();
-    SSR.compileTemplate("welcomeNotification", Assets.getText("server/emailTemplates/welcomeNotification.html"));
-    Email.send({
-      to: email,
-      from: shop.emails[0],
-      subject: "Welcome to " + shop.name + "!",
-      html: SSR.render("welcomeNotification", {
-        homepage: Meteor.absoluteUrl(),
-        shop: shop,
-        user: Meteor.user()
-      })
-    });
-    return true;
-  },
+  // /*
+  //  * send an email to consumers on sign up
+  //  */
+  // "accounts/sendWelcomeEmail": function (shopId, userId) {
+  //   let email;
+  //   check(shop, Object);
+  //   this.unblock();
+  //   email = Meteor.user(userId).emails[0].address;
+  //   EFrameworkCore.configureMailUrl();
+  //   SSR.compileTemplate("welcomeNotification", Assets.getText("server/emailTemplates/welcomeNotification.html"));
+  //   Email.send({
+  //     to: email,
+  //     from: shop.emails[0],
+  //     subject: "Welcome to " + shop.name + "!",
+  //     html: SSR.render("welcomeNotification", {
+  //       homepage: Meteor.absoluteUrl(),
+  //       shop: shop,
+  //       user: Meteor.user()
+  //     })
+  //   });
+  //   return true;
+  // },
 
   /*
    * accounts/addUserPermissions
