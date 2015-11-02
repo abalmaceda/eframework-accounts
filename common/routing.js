@@ -1,6 +1,7 @@
 /**
  * Router for all things related to account profiles, sign in and management
  */
+ /* TODO */ 
 Router.map(function () {
   // Dashboard
   this.route("dashboard/accounts", {
@@ -14,6 +15,7 @@ Router.map(function () {
   });
 
   // Sign in page
+  /* TODO */ 
   this.route("signIn", {
     controller: ShopController,
     path: "signin",
@@ -21,6 +23,7 @@ Router.map(function () {
   });
 
   // account profile
+  /* TODO */ 
   this.route("account/profile", {
     controller: ShopAccountsController,
     path: "account/profile",

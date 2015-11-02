@@ -120,8 +120,8 @@ Package.onUse(function (api) {
   // api.addFiles("client/templates/forgot/forgot.js", "client");
 
   // // Update password views
-  // api.addFiles("client/templates/updatePassword/updatePassword.html", "client");
-  // api.addFiles("client/templates/updatePassword/updatePassword.js", "client");
+  api.addFiles("client/templates/updatePassword/updatePassword.html", "client");
+  api.addFiles("client/templates/updatePassword/updatePassword.js", "client");
 
 	api.addFiles("client/templates/accounts.html", "client");
 

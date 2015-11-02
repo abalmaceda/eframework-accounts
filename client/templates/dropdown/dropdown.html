@@ -1,20 +1,24 @@
 <!-- TODO -->
 <template name="loginDropdown">
 	<div class="dropdown" role="menu">
+		<!-- Si currenUser es true, entonces muestro menu relacionado con los permisos  -->
 		{{#if currentUser}}
 			<div class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000">
 				{{> avatar user=currentUser class="circular-icon" size="small" shape="circle"}}
 				<span id="logged-in-display-name"> {{displayName}}<b class="caret"></b></span>
 			</div>
 			<div class="dropdown-menu pull-right" role="menu">
+				<!-- Template del formulario para un usuario del sistema -->
 				{{> userDropdown}}
 			</div>
+		<!-- En caso contrario muestro formulario de log-in  -->
 		{{else}}
 			<div class="accounts-dropdown" data-event-category="accounts" data-event-action="accounts-dropdown-click">
 				<div class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000">
 					<span data-i18n="accountsUI.signIn">Sign In</span><b class="caret"></b>
 				</div>
 				<div class="accounts-dialog accounts-layout dropdown-menu pull-right">
+					<!-- Template del formulario de Log-in  -->
 					{{> loginForm}}
 				</div>
 			</div>

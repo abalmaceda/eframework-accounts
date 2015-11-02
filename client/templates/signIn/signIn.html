@@ -5,17 +5,23 @@
 		<h2 data-i18n="accountsUI.signIn">Sign In</h2>
 	</div>
 
+	<!-- Para agregar servicios de autenticacion externos -->
 	{{#each services}}
+		<!-- Por cada servicio, se llama al template -->
 		{{> loginFormServiceButton}}
 	{{/each}}
 
+	<!-- TODO : averiguar para que es esto -->
 	{{#if shouldShowSeperator}}
+		<!-- Se llama al template -->
 		{{> loginFormSeperator}}
 	{{/if}}
 
+	<!-- Para agregar servicio de autenticacion correspondiente al sistema -->
 	{{#if hasPasswordService}}
 		<form class="login-form" novalidate>
 
+			<!-- Para agregar servicio de autenticacion correspondiente al sistema -->
 			{{> loginFormMessages messages=messages}}
 
 			<div class="form-group form-group-email {{hasError messages.errors.email}}">
@@ -40,12 +46,17 @@
 				{{/if}}
 			</div>
 
+
 			<div class="form-group">
+				<!-- Botton para hacer submit de los datos : Basicamente llama al evento "submit form" del template "loginFormSignInView"-->
 				<button class="btn btn-primary btn-block" type="submit" data-i18n="accountsUI.signIn" tabindex="3" data-event-action="submitSignInForm">Sign In</button>
 			</div>
 
+			<!-- Otras acciones -->
 			<div class="form-group flex flex-justify-spaceBetween">
+				<!-- Boton para recuperar acceso a la cuenta despues de haber olvidado el password -->
 				<a data-i18n="accountsUI.forgotPassword" href tabindex="4" data-event-action="forgotPassword">Reset Password</a>
+				<!-- Crearse una cuenta propia del sitio -->
 				<a data-i18n="accountsUI.signUp" href tabindex="5" data-event-action="signUp">Register</a>
 			</div>
 

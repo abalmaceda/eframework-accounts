@@ -37,27 +37,28 @@ Accounts.registerLoginHandler(function (options) {
  * see: http://docs.meteor.com/#/full/accounts_oncreateuser
  */
 
-// Accounts.onCreateUser(function (options, user) {
-//   let shop = EFrameworkCore.getCurrentShop();
-//   let shopId = EFrameworkCore.getShopId();
-//   let roles = {};
+Accounts.onCreateUser(function (options, user) {
+  let shop = EFrameworkCore.getCurrentShop();
+  let shopId = EFrameworkCore.getShopId();
+  let roles = {};
 
-//   // clone before adding roles
-//   let account = _.clone(user);
-//   account.userId = user._id;
-//   EFrameworkCore.Collections.Accounts.insert(account);
-//   // init default user roles
-//   if (shop) {
-//     if (user.services === undefined) {
-//       roles[shopId] = shop.defaultVisitorRole || ["anonymous", "guest"];
-//     } else {
-//       roles[shopId] = shop.defaultRoles || ["guest", "account/profile"];
-//     }
-//   }
-//   // assign default user roles
-//   user.roles = roles;
-//   return user;
-// });
+  // clone before adding roles
+  let account = _.clone(user);
+  account.userId = user._id;
+  /* TODO : Descomentar */
+  //EFrameworkCore.Collections.Accounts.insert(account);
+  // init default user roles
+  if (shop) {
+    if (user.services === undefined) {
+      roles[shopId] = shop.defaultVisitorRole || ["anonymous", "guest"];
+    } else {
+      roles[shopId] = shop.defaultRoles || ["guest", "account/profile"];
+    }
+  }
+  // assign default user roles
+  user.roles = roles;
+  return user;
+});
 
 /**
  * Accounts.onLogin event

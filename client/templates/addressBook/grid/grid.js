@@ -1,7 +1,11 @@
+/* TODO */
+
 /*
  * handles display of addressBook grid
  */
+ /* TODO */
 Template.addressBookGrid.helpers({
+  /* TODO */
   selectedBilling: function () {
     let cart = EFrameworkCore.Collections.Cart.findOne({
       userId: Meteor.userId()
@@ -17,7 +21,7 @@ Template.addressBookGrid.helpers({
       }
     }
   },
-
+/* TODO */
   selectedShipping: function () {
     let cart = EFrameworkCore.Collections.Cart.findOne({
       userId: Meteor.userId()
@@ -33,6 +37,7 @@ Template.addressBookGrid.helpers({
       }
     }
   },
+  /* TODO */
   account: function () {
     return EFrameworkCore.Collections.Accounts.findOne({
       userId: Meteor.userId()
@@ -43,14 +48,16 @@ Template.addressBookGrid.helpers({
 /*
  * events
  */
-
+/* TODO */
 Template.addressBookGrid.events({
+  /* TODO */
   "click [data-event-action=selectShippingAddress]": function () {
     let cart = EFrameworkCore.Collections.Cart.findOne({
       userId: Meteor.userId()
     });
     return Meteor.call("cart/setShipmentAddress", cart._id, this);
   },
+  /* TODO */
   "click [data-event-action=selectBillingAddress]": function () {
     let cart = EFrameworkCore.Collections.Cart.findOne({
       userId: Meteor.userId()

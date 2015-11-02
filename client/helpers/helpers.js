@@ -1,46 +1,55 @@
 
-/* TODO */
+/*
+* Recordar que Template.instance() es para acceder la instancia del Template generalmente desde los helpers
+*/
+
 
 window.LoginFormSharedHelpers = {
-
+	/* TODO */
 	messages: function() {
-	return Template.instance().formMessages.get();
+		return Template.instance().formMessages.get();
 	},
 
+	/* TODO */
 	hasError(error) {
-	// True here means the field is valid
-	// We're checking if theres some other message to display
-	if (error !== true && typeof error !== "undefined") {
-	return "has-error has-feedback";
-	}
+		// True here means the field is valid
+		// We're checking if theres some other message to display
+		if (error !== true && typeof error !== "undefined") {
+			return "has-error has-feedback";
+		}
 
-	return false;
+		return false;
 	},
-
+	/* TODO */
 	formErrors() {
-	return Template.instance().formErrors.get();
+		return Template.instance().formErrors.get();
 	},
-
+	/* TODO */
 	uniqueId: function() {
-	return Template.instance().uniqueId;
+		return Template.instance().uniqueId;
 	},
 
-
+	/**
+	* services - Obtiene todos los servicios disponibles para hacer Third-Party Authentication.
+	* @return {Array[Object]} - 
+	*/
 	services() {
-	let serviceHelper = new EFrameworkServiceHelper();
-	return serviceHelper.services();
+		let serviceHelper = new EFrameworkServiceHelper();
+		return serviceHelper.services();
 	},
 
+	/* TODO */
 	shouldShowSeperator() {
-	let serviceHelper = new EFrameworkServiceHelper();
-	let services = serviceHelper.services();
-	let enabledServices = _.where(services, {enabled: true});
+		let serviceHelper = new EFrameworkServiceHelper();
+		let services = serviceHelper.services();
+		let enabledServices = _.where(services, {enabled: true});
 
-	return !!Package["accounts-password"] && enabledServices.length > 0;
+		return !!Package["accounts-password"] && enabledServices.length > 0;
 	},
 
+	/* TODO */
 	hasPasswordService() {
-	return !!Package["accounts-password"];
+		return !!Package["accounts-password"];
 	}
 };
 

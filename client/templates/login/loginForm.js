@@ -40,7 +40,7 @@ Template.loginForm.helpers({
 /**
  * Login form onCreated
  */
- /* TODO : emtemder el codigo */
+ /* TODO : entender el codigo */
 Template.loginForm.onCreated(function () {
 	let template = Template.instance();
 	let currentData = Template.currentData();
