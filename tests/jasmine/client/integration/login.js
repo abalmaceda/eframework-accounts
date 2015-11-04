@@ -2,7 +2,7 @@
 * waitForElement
 * see: https://velocity.readme.io/docs/jasmine-template-testing
 */
-
+/* TODO */
 waitForElement = function (selector, successCallback) {
   let checkInterval = 50;
   let timeoutInterval = jasmine.DEFAULT_TIMEOUT_INTERVAL;
