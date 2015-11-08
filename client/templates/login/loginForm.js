@@ -65,22 +65,22 @@ Template.loginForm.onCreated(function () {
  /*TODO*/
 Template.loginForm.events({
 
-  /**
-   * Event: Show sign in view
-   * @param  {Event}    event    jQuery Event
-   * @param  {Template} template Blaze Template instance
-   * @return {void}
-   */
-   /*TODO*/
-  "click [data-event-action=signIn]": function (event, template) {
-    event.preventDefault();
-    event.stopPropagation();
+	/**
+	* Event: Show sign in view
+	* @param  {Event}    event    jQuery Event
+	* @param  {Template} template Blaze Template instance
+	* @return {void}
+	*/
+	/*TODO*/
+	"click [data-event-action=signIn]": function (event, template) {
+		event.preventDefault();
+		event.stopPropagation();
 
-    template.email = template.$(".login-input-email").val();
-    template.password = template.$(".login-input-password").val();
+		template.email = template.$(".login-input-email").val();
+		template.password = template.$(".login-input-password").val();
 
-    template.loginFormCurrentView.set("loginFormSignInView");
-  },
+		template.loginFormCurrentView.set("loginFormSignInView");
+	},
 
   /**
    * Event: Show the sign up (register) view

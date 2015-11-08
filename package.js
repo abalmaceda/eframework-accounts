@@ -112,12 +112,12 @@ Package.onUse(function (api) {
 	api.addFiles("client/templates/signIn/signIn.js", "client");
 
 	// sign up
-	// api.addFiles("client/templates/signUp/signUp.html", "client");
-	// api.addFiles("client/templates/signUp/signUp.js", "client");
+	api.addFiles("client/templates/signUp/signUp.html", "client");
+	api.addFiles("client/templates/signUp/signUp.js", "client");
 
-  // // reset password
-  // api.addFiles("client/templates/forgot/forgot.html", "client");
-  // api.addFiles("client/templates/forgot/forgot.js", "client");
+	// reset password
+	api.addFiles("client/templates/forgot/forgot.html", "client");
+	api.addFiles("client/templates/forgot/forgot.js", "client");
 
   // // Update password views
   api.addFiles("client/templates/updatePassword/updatePassword.html", "client");

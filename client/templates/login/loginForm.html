@@ -5,8 +5,12 @@
 	</div>
 </template>
 
-<!-- TODO -->
+<!-- 
+Se utiliza para mostrar información en los formularios. Esta información la envia el servidor para informar de los problemas al realizar la operación en curso.
+Se diferencia entre dos tipos de alertas según su importancia.
+-->
 <template name="loginFormMessages">
+	<!-- Si la alerta es de tipo info -->
 	{{#if messages.info}}
 		<div class="alert alert-info">
 			{{#each messages.info}}
@@ -15,6 +19,7 @@
 		</div>
 	{{/if}}
 
+	<!-- Si la alerta es de tipo danger -->
 	{{#if messages.alerts}}
 		<div class="alert alert-danger">
 			{{#each messages.alerts}}

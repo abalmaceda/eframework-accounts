@@ -10,10 +10,15 @@ window.LoginFormSharedHelpers = {
 		return Template.instance().formMessages.get();
 	},
 
-	/* TODO */
+	/**
+	* hasError
+	* @summary Verifica que el parametro contenga informaión de un error.
+	* @param {String} error - Información de un error
+	* @return {String/ Boolean} - Retorna un String con classes (css) si hay errores, o "false" en caso contrario
+	*/
 	hasError(error) {
-		// True here means the field is valid
 		// We're checking if theres some other message to display
+		/* True significa que el campo e valido ( no tiene errores )*/
 		if (error !== true && typeof error !== "undefined") {
 			return "has-error has-feedback";
 		}
@@ -57,6 +62,7 @@ window.LoginFormSharedHelpers = {
 /**
  * registerHelper displayName
  */
+ /* TODO */
 Template.registerHelper("displayName", function (user) {
   let username;
   let authenticated = false;
@@ -97,7 +103,7 @@ Template.registerHelper("displayName", function (user) {
 /**
  * registerHelper fName
  */
-
+/* TODO */
 Template.registerHelper("fName", function (user) {
   var username;
   user = user || Meteor.user();

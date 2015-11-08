@@ -1,31 +1,34 @@
-
+<!-- Template para hacer reset del password-->
 <template name="loginFormResetPasswordView">
 
-  <div class="loginForm-title">
-    <h2 data-i18n="accountsUI.resetYourPassword">Reset your password</h2>
-  </div>
+	<div class="loginForm-title">
+		<h2 data-i18n="accountsUI.resetYourPassword">Reset your password</h2>
+	</div>
 
-  <form name="loginForm" novalidate>
+	<form name="loginForm" novalidate>
 
-    {{> loginFormMessages messages=messages}}
+		<!-- Llamo a Template.loginFormMessages y le paso como parametro el resultado de la función messages (Template.instance().formMessages.get()). Como la formMessages es "reactive data", esto se llama cada vez que dicha función sufra algun cambio.-->
+		{{> loginFormMessages messages=messages}}
 
-    <div class="form-group {{hasError messages.errors.email}}">
-      <label for="email-{{uniqueId}}" class="control-label" data-i18n="accountsUI.emailAddress">Email Address</label>
-      <input id="email-{{uniqueId}}" class="form-control login-input-email" type="text" value="{{email}}">
+		<!-- Este div agrega un feedback rojo ( se agregan clases css ) si el email tiene errores al ser ingresado -->
+		<div class="form-group {{hasError messages.errors.email}}">
+			<label for="email-{{uniqueId}}" class="control-label" data-i18n="accountsUI.emailAddress">Email Address</label>
+			<input id="email-{{uniqueId}}" class="form-control login-input-email" type="text" value="{{email}}">
 
-      {{#if hasError messages.errors.email}}
-        <span class="help-block">
-          {{messages.errors.email}}
-        </span>
-      {{/if}}
-    </div>
+			<!-- Agrega commentarios si hay esrror en el email.-->
+			{{#if hasError messages.errors.email}}
+				<span class="help-block">
+					{{messages.errors.email}}
+				</span>
+			{{/if}}
+		</div>
 
-    <div class="form-group">
-      <button class="btn btn-primary btn-block" type="Submit" data-i18n="accountsUI.resetYourPassword"  data-event-category="accounts" data-event-action="reset-password">Reset Your Password</button>
-    </div>
+		<div class="form-group">
+			<button class="btn btn-primary btn-block" type="Submit" data-i18n="accountsUI.resetYourPassword"  data-event-category="accounts" data-event-action="reset-password">Reset Your Password</button>
+		</div>
 
-    <div class="form-group">
-      <a href data-i18n="accountsUI.signIn"  data-event-category="accounts" data-event-action="signIn">Sign In</a>
-    </div>
-  </form>
+		<div class="form-group">
+			<a href data-i18n="accountsUI.signIn"  data-event-category="accounts" data-event-action="signIn">Sign In</a>
+		</div>
+	</form>
 </template>
