@@ -1,7 +1,7 @@
 <!-- TODO -->
 <template name="loginDropdown">
 	<div class="dropdown" role="menu">
-		<!-- Si currenUser es true, entonces muestro menu relacionado con los permisos  -->
+		<!-- Si currentUser es true, entonces muestro menu relacionado con los permisos  -->
 		{{#if currentUser}}
 			<div class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000">
 				{{> avatar user=currentUser class="circular-icon" size="small" shape="circle"}}
@@ -28,46 +28,50 @@
 
 <!-- TODO -->
 <template name="userDropdown">
-  <div class="user-accounts-dropdown">
-    <div class="user-accounts-dropdown-content">
-      {{> accountsDropdownApps}}
-    </div>
-    <div class="btn btn-primary btn-block" id="logout" data-i18n="accountsUI.signOut">Sign Out</div>
-  </div>
-
+	<div class="user-accounts-dropdown">
+		<div class="user-accounts-dropdown-content">
+			{{> accountsDropdownApps}}
+		</div>
+		<div class="btn btn-primary btn-block" id="logout" data-i18n="accountsUI.signOut">Sign Out</div>
+	</div>
 </template>
 
 <!-- TODO -->
 <template name="accountsDropdownApps">
-  <ul class="user-accounts-dropdown-apps">
-    {{> userAccountsDropdown}}
-    <!--administrative shortcut icons -->
-{{#each reactionApps provides='shortcut' enabled=true}} {{#if hasPermission route}}
-    <li class="dropdown-apps-icon">
-      <a id="{{route}}" title="{{label}}">
-        <i class="{{icon}}"></i>
-        <span class="icon-text">
-          {{label}}
-        </span>
-      </a>
-    </li>
-    {{/if}} {{/each}}
-  </ul>
+	<ul class="user-accounts-dropdown-apps">
+		{{> userAccountsDropdown}}
+		<!--administrative shortcut icons -->
+		{{#each reactionApps provides='shortcut' enabled=true}}
+			{{#if hasPermission route}}
+			<li class="dropdown-apps-icon">
+				<a id="{{route}}" title="{{label}}">
+					<i class="{{icon}}"></i>
+					<span class="icon-text">
+						{{label}}
+					</span>
+				</a>
+			</li>
+			{{/if}}
+		{{/each}}
+	</ul>
 </template>
 
 <!-- TODO -->
 <template name="userAccountsDropdown">
-  <!--user account shortcut icons -->
-{{#each reactionApps provides='userAccountDropdown' enabled=true}} {{#if hasPermission route}}
-  <li class="dropdown-apps-icon">
-    <a id="{{route}}" title="{{label}}">
-      <i class="{{icon}}"></i>
-      <span class="icon-text">
-        {{label}}
-      </span>
-    </a>
-  </li>
-  {{/if}} {{else}}
-  <span data-i18n="accountsUI.signedIn">You are signed in.</span>
-  {{/each}}
+	<!--user account shortcut icons -->
+	{{#each reactionApps provides='userAccountDropdown' enabled=true}}
+		{{#if hasPermission route}}
+			<li class="dropdown-apps-icon">
+				<a id="{{route}}" title="{{label}}">
+					<i class="{{icon}}"></i>
+					<span class="icon-text">
+						{{label}}
+					</span>
+				</a>
+			</li>
+		{{/if}}
+	<!-- TODO: Este ELSE va junto con el EACH ???.-->
+	{{else}}
+		<span data-i18n="accountsUI.signedIn">You are signed in.</span>
+	{{/each}}
 </template>

@@ -5,7 +5,11 @@
 
 
 window.LoginFormSharedHelpers = {
-	/* TODO */
+	/**
+	* messages
+	* @summary Rertona toda la información que tiene la variable formMessages. formMessages us una "reactive data", por lo tanto esta funcion se ejecuta cada vez qeu dicha variable sufre algun cambios.
+	* @return {Object} - Retorna un objecto con todos los mensajes almacenados en relación al Template actual.
+	*/
 	messages: function() {
 		return Template.instance().formMessages.get();
 	},
@@ -16,7 +20,8 @@ window.LoginFormSharedHelpers = {
 	* @param {String} error - Información de un error
 	* @return {String/ Boolean} - Retorna un String con classes (css) si hay errores, o "false" en caso contrario
 	*/
-	hasError(error) {
+	/* TODO: cambio hasError(error) -> hasError: function(error) para verificar compatibilidad */
+	hasError: function(error) {
 		// We're checking if theres some other message to display
 		/* True significa que el campo e valido ( no tiene errores )*/
 		if (error !== true && typeof error !== "undefined") {
@@ -25,7 +30,7 @@ window.LoginFormSharedHelpers = {
 
 		return false;
 	},
-	/* TODO */
+	/* TODO : al paraecer esta funcion esta deprecada. Solo se esta utilzando messages()*/
 	formErrors() {
 		return Template.instance().formErrors.get();
 	},

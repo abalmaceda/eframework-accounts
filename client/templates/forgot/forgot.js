@@ -24,7 +24,7 @@ Template.loginFormResetPasswordView.events({
 		if ($.isEmptyObject(errors) === false) {
 			templateInstance.formMessages.set( {errors: errors} );
 		// prevent password reset
-		/* TODO : return estaba comentado antes, asi que probare momentaneamente descomentandolo*/
+		/* TODO : return estaba comentado antes, asi que probare momentaneamente descomentándolo*/
 			return;
 		}
 
@@ -34,7 +34,6 @@ Template.loginFormResetPasswordView.events({
 
 		Accounts.forgotPassword({ email: emailAddress}, (error) => {
 			// Show some message confirming result
-
 			if (error) {
 				templateInstance.formMessages.set({
 				alerts: [error]
