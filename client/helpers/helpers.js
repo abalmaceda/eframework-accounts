@@ -31,7 +31,7 @@ window.LoginFormSharedHelpers = {
 		return false;
 	},
 	/* TODO : al paraecer esta funcion esta deprecada. Solo se esta utilzando messages()*/
-	formErrors() {
+	formErrors: function () {
 		return Template.instance().formErrors.get();
 	},
 	/* TODO */
@@ -41,15 +41,15 @@ window.LoginFormSharedHelpers = {
 
 	/**
 	* services - Obtiene todos los servicios disponibles para hacer Third-Party Authentication.
-	* @return {Array[Object]} - 
+	* @return {Array[Object]} -
 	*/
-	services() {
+	services: function() {
 		let serviceHelper = new EFrameworkServiceHelper();
 		return serviceHelper.services();
 	},
 
 	/* TODO */
-	shouldShowSeperator() {
+	shouldShowSeperator: function() {
 		let serviceHelper = new EFrameworkServiceHelper();
 		let services = serviceHelper.services();
 		let enabledServices = _.where(services, {enabled: true});
@@ -58,7 +58,7 @@ window.LoginFormSharedHelpers = {
 	},
 
 	/* TODO */
-	hasPasswordService() {
+	hasPasswordService: function() {
 		return !!Package["accounts-password"];
 	}
 };
@@ -67,74 +67,84 @@ window.LoginFormSharedHelpers = {
 /**
  * registerHelper displayName
  */
- /* TODO */
+
+/**
+* displayName
+* @summary Obtiene el nombre de usuario para mostrar
+* @description Esta helper function es visible desde todos los templates
+* @return {String} Nombre del usuario
+*/
 Template.registerHelper("displayName", function (user) {
-  let username;
-  let authenticated = false;
-  user = user || Meteor.user();
+	let username;
+	let authenticated = false;
+	user = user || Meteor.user();
 
-  if (user && user.profile && user.profile.name) {
-    return user.profile.name;
-  } else if (user && user.username) {
-    return user.username;
-  }
+	/*TODO: Verificar cual es la diferencia user.profile.name y user.username*/
+	if (user && user.profile && user.profile.name) {
+		return user.profile.name;
+	} else if (user && user.username) {
+		return user.username;
+	}
 
-  if (user.services && user.services !== 'anonymous' && user.services !== 'resume') {
-    authenticated = true;
-  }
+	if (user.services && user.services !== 'anonymous' && user.services !== 'resume') {
+		authenticated = true;
+	}
 
-  if (user && authenticated === true) {
-    return username = (function () {
-      switch (false) {
-        case !user.services.twitter:
-          return user.services.twitter.name;
-        case !user.services.google:
-          return user.services.google.name;
-        case !user.services.facebook:
-          return user.services.facebook.name;
-        case !user.services.instagram:
-          return user.services.instagram.name;
-        case !user.services.pinterest:
-          return user.services.pinterest.name;
-        default:
-          return i18n.t('accountsUI.guest') || "Guest";
-      }
-    })();
-  } else {
-    return i18n.t('accountsUI.signIn') || "Sign in TEST";
-  }
+	if (user && authenticated === true) {
+		return username = (function () {
+			switch (false) {
+				case !user.services.twitter:
+					return user.services.twitter.name;
+				case !user.services.google:
+					return user.services.google.name;
+				case !user.services.facebook:
+					return user.services.facebook.name;
+				case !user.services.instagram:
+					return user.services.instagram.name;
+				case !user.services.pinterest:
+					return user.services.pinterest.name;
+				default:
+					return i18n.t('accountsUI.guest') || "Guest";
+			}
+		})();
+	}
+	else {
+		return i18n.t('accountsUI.signIn') || "Sign in TEST";
+	}
 });
 
 /**
- * registerHelper fName
- */
-/* TODO */
+* fName
+* @summary Obtiene el "nombre corte" del usuario para mostrar
+* @description Esta helper function es visible desde todos los templates
+* @return {String} Nombre corte del usuario
+*/
 Template.registerHelper("fName", function (user) {
-  var username;
-  user = user || Meteor.user();
-  if (user && user.profile && user.profile.name) {
-    return user.profile.name.split(" ")[0];
-  } else if (user && user.username) {
-    return user.username.name.split(" ")[0];
-  }
-  if (user && user.services) {
-    return username = (function () {
-      switch (false) {
-        case !user.services.twitter:
-          return user.services.twitter.first_name;
-        case !user.services.google:
-          return user.services.google.given_name;
-        case !user.services.facebook:
-          return user.services.facebook.first_name;
-        case !user.services.instagram:
-          return user.services.instagram.first_name;
-        case !user.services.pinterest:
-          return user.services.pinterest.first_name;
-        default:
-          return i18n.t('accountsUI.guest') || "Guest";
-      }
-    })();
-  } else {
-    return i18n.t('accountsUI.signIn') || "Sign in";
-  }
+	var username;
+	user = user || Meteor.user();
+	if (user && user.profile && user.profile.name) {
+		return user.profile.name.split(" ")[0];
+	} else if (user && user.username) {
+		return user.username.name.split(" ")[0];
+	}
+	if (user && user.services) {
+		return username = (function () {
+			switch (false) {
+				case !user.services.twitter:
+					return user.services.twitter.first_name;
+				case !user.services.google:
+					return user.services.google.given_name;
+				case !user.services.facebook:
+					return user.services.facebook.first_name;
+				case !user.services.instagram:
+					return user.services.instagram.first_name;
+				case !user.services.pinterest:
+					return user.services.pinterest.first_name;
+				default:
+					return i18n.t('accountsUI.guest') || "Guest";
+			}
+		})();
+	} else {
+		return i18n.t('accountsUI.signIn') || "Sign in";
+	}
 });

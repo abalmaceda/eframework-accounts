@@ -87,7 +87,7 @@ Accounts.onLogin(function (options) {
     EFrameworkCore.Log.debug("removed anonymous role from user: " + options.user._id);
 
     // onLogin, we want to merge session cart into user cart.
-    /* TODO : descomentar 
+    /* TODO : descomentar
     cart = EFrameworkCore.Collections.Cart.findOne({userId: options.user._id});
     Meteor.call("cart/mergeCart", cart._id);
     */
@@ -341,43 +341,50 @@ Meteor.methods({
   //   return true;
   // },
 
-  /*
-   * accounts/addUserPermissions
-   * @param {Array|String} permission
-   *               Name of role/permission.  If array, users
-   *               returned will have at least one of the roles
-   *               specified but need not have _all_ roles.
-   * @param {String} [group] Optional name of group to restrict roles to.
-   *                         User"s Roles.GLOBAL_GROUP will also be checked.
-   * @returns {Boolean} success/failure
-   */
-  "accounts/addUserPermissions": function (userId, permissions, group) {
-    check(userId, Match.OneOf(String, Array));
-    check(permissions, Match.OneOf(String, Array));
-    check(group, Match.Optional(String));
-    this.unblock();
-    try {
-      return Roles.addUsersToRoles(userId, permissions, group);
-    } catch (error) {
-      return EFrameworkCore.Log.info(error);
-    }
-  },
+	/**
+	* accounts/addUserPermissions
+	* @summary
+	* @param {String} userId
+	* @param {Array|String} permission
+	*               Name of role/permission.  If array, users
+	*               returned will have at least one of the roles
+	*               specified but need not have _all_ roles.
+	* @param {String} [group] Optional name of group to restrict roles to.
+	*                         User"s Roles.GLOBAL_GROUP will also be checked.
+	* @returns {Boolean} success/failure
+	*/
+	"accounts/addUserPermissions": function (userId, permissions, group) {
+		check(userId, Match.OneOf(String, Array));
+		check(permissions, Match.OneOf(String, Array));
+		check(group, Match.Optional(String));
+		this.unblock();
+		try {
+			return Roles.addUsersToRoles(userId, permissions, group);
+		} catch (error) {
+			return EFrameworkCore.Log.info(error);
+		}
+	},
 
-  /*
-   * accounts/removeUserPermissions
-   */
-  "accounts/removeUserPermissions": function (userId, permissions, group) {
-    check(userId, String);
-    check(permissions, Match.OneOf(String, Array));
-    check(group, Match.Optional(String, null));
-    this.unblock();
-    try {
-      return Roles.removeUsersFromRoles(userId, permissions, group);
-    } catch (error) {
-      EFrameworkCore.Log.info(error);
-      throw new Meteor.Error(403, "Access Denied");
-    }
-  },
+	/**
+	* accounts/removeUserPermissions
+	* @summary Elimina el permiso
+	* @param {String} userId
+	* @param {Array|String} permission
+	* @param {String} [group]
+	* @returns {Boolean} success/failure
+	*/
+	"accounts/removeUserPermissions": function (userId, permissions, group) {
+		check(userId, String);
+		check(permissions, Match.OneOf(String, Array));
+		check(group, Match.Optional(String, null));
+		this.unblock();
+		try {
+			return Roles.removeUsersFromRoles(userId, permissions, group);
+		} catch (error) {
+			EFrameworkCore.Log.info(error);
+			throw new Meteor.Error(403, "Access Denied");
+		}
+	},
 
   /*
    * accounts/setUserPermissions

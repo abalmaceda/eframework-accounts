@@ -2,7 +2,7 @@
 
 EFrameworkCore.registerPackage({
   label: "Accounts",
-  name: "reaction-accounts",
+  name: "eframework-accounts",
   icon: "fa fa-sign-in",
   autoEnable: true,
   registry: [

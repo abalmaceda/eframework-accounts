@@ -1,6 +1,6 @@
 Package.describe({
 	summary: "E-Framework Accounts - Authentication UI for E-Framework Commerce",
-	name: "eframework:accounts",
+	name: "eframework:eframework-accounts",
 	version: "1.2.3",
 	git: ""
 });
@@ -41,7 +41,7 @@ Package.onUse(function (api) {
 	api.use("accounts-twitter");
 	api.use("accounts-github");
 	api.use("accounts-weibo");
-	api.use("eframework:core");
+	api.use("eframework:eframework-core");
 
   // // Files
   api.addFiles("common/schemas/accounts.js");
@@ -72,14 +72,14 @@ Package.onUse(function (api) {
 	//TODO : revizar
 	api.addFiles("client/helpers/subscriptions.js", "client");
 
-  // // Dashboard
-  // api.addFiles("client/templates/dashboard/dashboard.html", "client");
-  // api.addFiles("client/templates/dashboard/dashboard.js", "client");
+  // Dashboard
+	api.addFiles("client/templates/dashboard/dashboard.html", "client");
+	api.addFiles("client/templates/dashboard/dashboard.js", "client");
 
-  // api.addFiles("client/templates/members/member.html", "client");
-  // api.addFiles("client/templates/members/member.js", "client");
-  // api.addFiles("client/templates/members/memberForm.html", "client");
-  // api.addFiles("client/templates/members/memberForm.js", "client");
+	api.addFiles("client/templates/members/member.html", "client");
+	api.addFiles("client/templates/members/member.js", "client");
+	api.addFiles("client/templates/members/memberForm/memberForm.html", "client");
+	api.addFiles("client/templates/members/memberForm/memberForm.js", "client");
 
   // User profile
   api.addFiles("client/templates/profile/profile.html", "client");
@@ -145,7 +145,7 @@ Package.onTest(function (api) {
   // api.use("velocity:html-reporter@0.8.2");
   // api.use("velocity:console-reporter@0.1.3");
 
-  // api.use("reactioncommerce:reaction-accounts");
+  // api.use("eframework:eframework-accounts");
 
   // api.addFiles("tests/jasmine/client/integration/login.js", "client");
 });

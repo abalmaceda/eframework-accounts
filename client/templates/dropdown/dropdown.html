@@ -4,7 +4,9 @@
 		<!-- Si currentUser es true, entonces muestro menu relacionado con los permisos  -->
 		{{#if currentUser}}
 			<div class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000">
-				{{> avatar user=currentUser class="circular-icon" size="small" shape="circle"}}
+				<!-- Avatar : Consolidated Avatar Template Package for Meteor  -->
+				<!-- Para mas detalles  : https://atmospherejs.com/utilities/avatar -->
+				{{> avatar user=currentUser class="circular-icon" size="small" shape="rounded"}}
 				<span id="logged-in-display-name"> {{displayName}}<b class="caret"></b></span>
 			</div>
 			<div class="dropdown-menu pull-right" role="menu">

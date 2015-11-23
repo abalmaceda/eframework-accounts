@@ -1,21 +1,21 @@
 /**
  * Router for all things related to account profiles, sign in and management
  */
- /* TODO */ 
+ /* TODO */
 Router.map(function () {
-  // Dashboard
-  this.route("dashboard/accounts", {
-    controller: ShopAdminController,
-    path: "/dashboard/accounts",
-    template: "accountsDashboard",
-    subscriptions: function () {
-      this.subscribe("ServiceConfiguration", Meteor.userId());
-      this.subscribe("ShopMembers");
-    }
-  });
+	// Dashboard
+	this.route("dashboard/accounts", {
+		controller: ShopAdminController,
+		path: "/dashboard/accounts",
+		template: "accountsDashboard",
+		subscriptions: function () {
+			this.subscribe("ServiceConfiguration", Meteor.userId());
+			this.subscribe("ShopMembers");
+		}
+	});
 
   // Sign in page
-  /* TODO */ 
+  /* TODO */
   this.route("signIn", {
     controller: ShopController,
     path: "signin",
@@ -23,7 +23,7 @@ Router.map(function () {
   });
 
   // account profile
-  /* TODO */ 
+  /* TODO */
   this.route("account/profile", {
     controller: ShopAccountsController,
     path: "account/profile",
