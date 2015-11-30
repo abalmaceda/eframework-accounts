@@ -24,24 +24,24 @@ Router.map(function () {
 
   // account profile
   /* TODO */
-  this.route("account/profile", {
-    controller: ShopAccountsController,
-    path: "account/profile",
-    template: "accountProfile",
-    subscriptions: function () {
-      this.subscribe("AccountOrders", Meteor.userId());
-    },
-    data: function () {
-      if (this.ready()) {
-        if (Orders.findOne() || Meteor.userId()) {
-          // if subscription has results or Meteor userId
-          return EFrameworkCore.Collections.Orders.find({}, {sort: { createdAt: -1 }});
-        }
-
-        this.render("unauthorized");
-      } else {
-        this.render("loading");
-      }
-    }
-  });
+	this.route("account/profile", {
+		controller: ShopAccountsController,
+		path: "account/profile",
+		template: "accountProfile",
+		subscriptions: function () {
+			this.subscribe("AccountOrders", Meteor.userId());
+		},
+		data: function () {
+			if (this.ready()) {
+				if (Orders.findOne() || Meteor.userId()) {
+				// if subscription has results or Meteor userId
+					return EFrameworkCore.Collections.Orders.find({}, {sort: { createdAt: -1 }});
+				}
+				this.render("unauthorized");
+			}
+			else {
+				this.render("loading");
+			}
+		}
+	});
 });

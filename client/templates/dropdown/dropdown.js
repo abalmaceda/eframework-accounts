@@ -21,7 +21,7 @@ Template.loginDropdown.events({
 	* @todo Entender que sucede aca tambien
 	*/
 	"click #logout": (event, template) => {
-		/* TODO: para se setea el valor de esta variable. Par aque se usa. ????*/
+		/* TODO: para se setea el valor de esta variable. Para que se usa. ????*/
 		Session.set("displayConsoleNavBar", false);
 
 		/* TODO: Puede haver mas de un cliente conectado ???? Para que es eso ??? */

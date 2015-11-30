@@ -86,20 +86,20 @@ Package.onUse(function (api) {
   api.addFiles("client/templates/profile/profile.js", "client");
 
   // // Address Book
-  // api.addFiles("client/templates/addressBook/addressBook.html", "client");
-  // api.addFiles("client/templates/addressBook/addressBook.js", "client");
+	api.addFiles("client/templates/addressBook/addressBook.html", "client");
+	api.addFiles("client/templates/addressBook/addressBook.js", "client");
 
-  // api.addFiles("client/templates/addressBook/add/add.html", "client");
-  // api.addFiles("client/templates/addressBook/add/add.js", "client");
+	api.addFiles("client/templates/addressBook/add/addressBookAdd.html", "client");
+	api.addFiles("client/templates/addressBook/add/addressBookAdd.js", "client");
 
-  // api.addFiles("client/templates/addressBook/edit/edit.html", "client");
-  // api.addFiles("client/templates/addressBook/edit/edit.js", "client");
+	api.addFiles("client/templates/addressBook/edit/addressBookEdit.html", "client");
+	api.addFiles("client/templates/addressBook/edit/addressBookEdit.js", "client");
 
-  // api.addFiles("client/templates/addressBook/form/form.html", "client");
-  // api.addFiles("client/templates/addressBook/form/form.js", "client");
+	api.addFiles("client/templates/addressBook/form/addressBookForm.html", "client");
+	api.addFiles("client/templates/addressBook/form/addressBookForm.js", "client");
 
-  // api.addFiles("client/templates/addressBook/grid/grid.html", "client");
-  // api.addFiles("client/templates/addressBook/grid/grid.js", "client");
+	api.addFiles("client/templates/addressBook/grid/addressBookGrid.html", "client");
+	api.addFiles("client/templates/addressBook/grid/addressBookGrid.js", "client");
 
   // // core login form and generic templates
 	api.addFiles("client/templates/login/loginForm.html", "client");

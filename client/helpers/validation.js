@@ -25,7 +25,7 @@ window.LoginFormValidation = {
 			Si cumple con todos los requisitos ( para este caso solo uno ), entoces el "username" se considera correcto.
 		*/
 		return true;
-		
+
 	},
 
 	/**
@@ -69,30 +69,25 @@ window.LoginFormValidation = {
 
 		/*
 		 Expresion regular que simplemente valida que tenga al menos un caracter y/o simbolo.
-		 Se podria agregar restricciones como que contenta mayusculas/minuscular; incluso aplicar un algoritmo para saber si es un password potencialmente inseguro.
+		 Se podria agregar restricciones como que contenga mayusculas/minuscular; incluso aplicar un algoritmo para saber si es un password potencialmente inseguro.
 		 */
 		var validPasswordRegex = /^.*(?=.*[a-z])(?=.*[\d\W]).*$/;
 		options = options || {};
 
-		/* TODO : No entiendo para que se utiliza options */
-		// Only check if a password has been entered at all.
-		// This is usefull for the login forms
+		//Verificamos si se ingreso o no un password.
+		// Por ejemplo es útil en caso de login forms ya que solo nos interesa saber si realmente ingreso algo, para luego verificarlo con lo que esta en el servidor.
 		if (options.validationLevel === 'exists') {
 			if (password.length > 0) {
 				return true;
 			} else {
-				return {
+				return [{
 					error: "INVALID_PASSWORD",
 					reason: i18n.t('accountsUI.error.passwordRequired')
-				};
+				}];
 			}
 		}
 
-	    // 
-	    // Validate the password pased on some rules
-	    // This is useful for cases where a password needs to be created or updated.
-	    //
-
+	    // Se valida le password. Util cuando debe ser creado o actualizado
 	    var errors = [];
 
 	    /* Se agrega restriccion que tenga un largo al menos de 6 caracteres. Ojo que no se agrego esta restriccion dentro de la Expresion regular para asi poder identificar que el error es por largo y no por tipo de caracter insertado. */

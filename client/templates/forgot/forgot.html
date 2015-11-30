@@ -15,7 +15,7 @@
 			<label for="email-{{uniqueId}}" class="control-label" data-i18n="accountsUI.emailAddress">Email Address</label>
 			<input id="email-{{uniqueId}}" class="form-control login-input-email" type="text" value="{{email}}">
 
-			<!-- Agrega commentarios si hay esrror en el email.-->
+			<!-- Agrega commentarios si hay error en el email.-->
 			{{#if hasError messages.errors.email}}
 				<span class="help-block">
 					{{messages.errors.email}}

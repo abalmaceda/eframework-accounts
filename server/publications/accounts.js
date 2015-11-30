@@ -6,20 +6,26 @@
 
 var Accounts = EFrameworkCore.Collections.Accounts;
 
-Meteor.publish('Accounts', function(userId) {
-  check(userId, Match.OneOf(String, null));
-  // global admin can get all accounts
-  if (Roles.userIsInRole(this.userId, ['owner'], Roles.GLOBAL_GROUP)) {
-    return Accounts.find();
-  // shop admin gets accouns for just this shop
-  } else if (Roles.userIsInRole(this.userId, ['admin', 'owner'], EFrameworkCore.getShopId(this))) {
-    return Accounts.find({
-      shopId: EFrameworkCore.getShopId(this)
-    });
-  // regular users should get just their account
-  } else {
-    return EFrameworkCore.Collections.Accounts.find({'userId': this.userId});
-  }
+/**
+* @function Meteor.publish('Accounts')
+* @summary Recupera los datos  de la o las direcciones.
+* @param {String} userId - id del usuario
+* @return {Accounts[]}
+*/
+Meteor.publish("Accounts", function(userId) {
+	check(userId, Match.OneOf(String, null));
+	// global admin puede obtener todas accounts
+	if (Roles.userIsInRole(this.userId, ['owner'], Roles.GLOBAL_GROUP)) {
+		return Accounts.find();
+	}
+	//shop admin obtiene accounts solo para esta shop
+	else if (Roles.userIsInRole(this.userId, ['admin', 'owner'], EFrameworkCore.getShopId(this))) {
+		return Accounts.find({ shopId: EFrameworkCore.getShopId(this) });
+	}
+	// Usuarios regulares deben obtener solos sus acounts
+	else {
+		return EFrameworkCore.Collections.Accounts.find({'userId': this.userId});
+	}
 });
 
 
@@ -31,6 +37,7 @@ Meteor.publish('Accounts', function(userId) {
  * may view the profileUserId's profile data.
  *
  * @params {String} profileUserId -  view this users profile when permitted
+ * @todo all
  */
 
 

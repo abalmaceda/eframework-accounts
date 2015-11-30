@@ -1,15 +1,16 @@
+<!-- TODO -->
 <template name="addressBookPanel">
-  <div class="panel panel-default panel-address-book">
-    <div class="panel-heading">
-      <h2 class="panel-title">Address Book</h2>
-    </div>
-    {{> addressBook address=address}}
-  </div>
+	<div class="panel panel-default panel-address-book">
+		<div class="panel-heading">
+			<h2 class="panel-title">Address Book</h2>
+		</div>
+		{{> addressBook address=address}}
+	</div>
 </template>
 
-
+<!-- TODO -->
 <template name="addressBook">
-  <div class="address-book">
-    {{> Template.dynamic template=currentView data=data}}
-  </div>
+	<div class="address-book">
+		{{> Template.dynamic template=currentView data=data}}
+	</div>
 </template>

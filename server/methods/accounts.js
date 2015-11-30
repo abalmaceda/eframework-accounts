@@ -26,38 +26,44 @@ Accounts.registerLoginHandler(function (options) {
   return loginHandler;
 });
 
-
 /**
- * Accounts.onCreateUser event
+ * Accounts.onCreateUser
+ * @summary Se agrega un role
  * adding either a guest or anonymous role to the user on create
  * adds Accounts record for reaction user profiles
  * we clone the user into accounts, as the user collection is
  * only to be used for authentication.
- *
- * see: http://docs.meteor.com/#/full/accounts_oncreateuser
+ * @event onCreateUser
+ * @param {} options
+ * @param {} user
+ * @returns {Number} Sum of a and b
+ * @this What_does_the_THIS_keyword_refer_to_here
+ * @description add_two_numbers
+ * @see {@link http://docs.meteor.com/#/full/accounts_oncreateuser|Meteor}
+ * @todo Documentar
  */
-
 Accounts.onCreateUser(function (options, user) {
-  let shop = EFrameworkCore.getCurrentShop();
-  let shopId = EFrameworkCore.getShopId();
-  let roles = {};
+	let shop = EFrameworkCore.getCurrentShop();
+	let shopId = EFrameworkCore.getShopId();
+	let roles = {};
 
-  // clone before adding roles
-  let account = _.clone(user);
-  account.userId = user._id;
-  /* TODO : Descomentar */
-  //EFrameworkCore.Collections.Accounts.insert(account);
-  // init default user roles
-  if (shop) {
-    if (user.services === undefined) {
-      roles[shopId] = shop.defaultVisitorRole || ["anonymous", "guest"];
-    } else {
-      roles[shopId] = shop.defaultRoles || ["guest", "account/profile"];
-    }
-  }
-  // assign default user roles
-  user.roles = roles;
-  return user;
+	// clone before adding roles
+	let account = _.clone(user);
+	account.userId = user._id;
+
+	EFrameworkCore.Collections.Accounts.insert(account);
+	// init default user roles
+	if (shop) {
+		if (user.services === undefined) {
+			roles[shopId] = shop.defaultVisitorRole || ["anonymous", "guest"];
+		}
+		else {
+			roles[shopId] = shop.defaultRoles || ["guest", "account/profile"];
+		}
+	}
+	// assign default user roles
+	user.roles = roles;
+	return user;
 });
 
 /**
@@ -66,6 +72,7 @@ Accounts.onCreateUser(function (options, user) {
  * let"s remove "anonymous" role, if the login type isn't "anonymous"
  * @param
  * @returns
+ * @todo Documentar y entender
  */
 Accounts.onLogin(function (options) {
   // remove anonymous role
@@ -87,136 +94,142 @@ Accounts.onLogin(function (options) {
     EFrameworkCore.Log.debug("removed anonymous role from user: " + options.user._id);
 
     // onLogin, we want to merge session cart into user cart.
-    /* TODO : descomentar
-    cart = EFrameworkCore.Collections.Cart.findOne({userId: options.user._id});
-    Meteor.call("cart/mergeCart", cart._id);
-    */
+    // cart = EFrameworkCore.Collections.Cart.findOne({userId: options.user._id});
+    // Meteor.call("cart/mergeCart", cart._id);
 
-    /* TODO: descomentar */
     // logged in users need an additonal worfklow push to get started with checkoutLogin
-    //return Meteor.call("workflow/pushCartWorkflow", "coreCartWorkflow", "checkoutLogin");
+    return Meteor.call("workflow/pushCartWorkflow", "coreCartWorkflow", "checkoutLogin");
   }
 });
 
-/* TODO : entender por que este codigo tiene funciones "string" */
 /**
- * Reaction Account Methods
- */
+* @function Meteor.methods
+* @summary Metodos Reactivos para Accounts
+* @return {Boolean}
+*/
 Meteor.methods({
-  /*
-   * check if current user has password
-   */
-  "accounts/currentUserHasPassword": function () {
-    let user;
-    user = Meteor.users.findOne(Meteor.userId());
-    if (user.services.password) {
-      return true;
-    }
-    return false;
-  },
 
-  /*
-   * add new addresses to an account
-   */
-  "accounts/addressBookAdd": function (doc, accountId) {
-    this.unblock();
-    check(doc, EFrameworkCore.Schemas.Address);
-    check(accountId, String);
-    EFrameworkCore.Schemas.Address.clean(doc);
-    if (doc.isShippingDefault || doc.isBillingDefault) {
-      if (doc.isShippingDefault) {
-        EFrameworkCore.Collections.Accounts.update({
-          "_id": accountId,
-          "userId": accountId,
-          "profile.addressBook.isShippingDefault": true
-        }, {
-          $set: {
-            "profile.addressBook.$.isShippingDefault": false
-          }
-        });
-      }
-      if (doc.isBillingDefault) {
-        EFrameworkCore.Collections.Accounts.update({
-          "_id": accountId,
-          "userId": accountId,
-          "profile.addressBook.isBillingDefault": true
-        }, {
-          $set: {
-            "profile.addressBook.$.isBillingDefault": false
-          }
-        });
-      }
-    }
-    EFrameworkCore.Collections.Accounts.upsert(accountId, {
-      $set: {
-        userId: accountId
-      },
-      $addToSet: {
-        "profile.addressBook": doc
-      }
-    });
-    return doc;
-  },
+   /**
+	* @function accounts/currentUserHasPassword
+	* @summary Verifica si el usuario tiene password
+	* @return {Boolean}
+	*/
+	"accounts/currentUserHasPassword": function () {
+		let user;
+		user = Meteor.users.findOne(Meteor.userId());
+		if (user.services.password) {
+			return true;
+		}
+		return false;
+	},
 
-  // /*
-  //  * update existing address in user"s profile
-  //  */
-  // "accounts/addressBookUpdate": function (doc, accountId) {
-  //   this.unblock();
-  //   check(doc, EFrameworkCore.Schemas.Address);
-  //   check(accountId, String);
-  //   if (doc.isShippingDefault || doc.isBillingDefault) {
-  //     if (doc.isShippingDefault) {
-  //       EFrameworkCore.Collections.Accounts.update({
-  //         "_id": accountId,
-  //         "profile.addressBook.isShippingDefault": true
-  //       }, {
-  //         $set: {
-  //           "profile.addressBook.$.isShippingDefault": false
-  //         }
-  //       });
-  //     }
-  //     if (doc.isBillingDefault) {
-  //       EFrameworkCore.Collections.Accounts.update({
-  //         "_id": accountId,
-  //         "profile.addressBook.isBillingDefault": true
-  //       }, {
-  //         $set: {
-  //           "profile.addressBook.$.isBillingDefault": false
-  //         }
-  //       });
-  //     }
-  //   }
-  //   EFrameworkCore.Collections.Accounts.update({
-  //     "_id": accountId,
-  //     "profile.addressBook._id": doc._id
-  //   }, {
-  //     $set: {
-  //       "profile.addressBook.$": doc
-  //     }
-  //   });
-  //   return doc;
-  // },
+	/**
+	* @function accounts/addressBookAdd
+	* @summary Agrega una nueva address a la account
+	* @param {Account} doc - objeto account con información de nueva address
+	* @param {String} accountId - id de la cuenta
+	* @return {String} return Mongo upsert result
+	*/
+	"accounts/addressBookAdd": function (doc, accountId) {
+		this.unblock();
+		check(doc, EFrameworkCore.Schemas.Address);
+		check(accountId, String);
+		EFrameworkCore.Schemas.Address.clean(doc);
+		if (doc.isShippingDefault || doc.isBillingDefault) {
+			if (doc.isShippingDefault) {
+				EFrameworkCore.Collections.Accounts.update({
+					"_id": accountId,
+					"userId": accountId,
+					"profile.addressBook.isShippingDefault": true
+				},
+				{
+					$set: { "profile.addressBook.$.isShippingDefault": false }
+				});
+			}
+			if (doc.isBillingDefault) {
+				EFrameworkCore.Collections.Accounts.update({
+					"_id": accountId,
+					"userId": accountId,
+					"profile.addressBook.isBillingDefault": true
+				},
+				{
+					$set: { "profile.addressBook.$.isBillingDefault": false }
+				});
+			}
+		}
+		return EFrameworkCore.Collections.Accounts.upsert(accountId, {
+			$set: { userId: accountId },
+			$addToSet: { "profile.addressBook": doc }
+		});
+  	},
 
-  // /*
-  //  * remove existing address in user"s profile
-  //  */
-  // "accounts/addressBookRemove": function (doc, accountId) {
-  //   this.unblock();
-  //   check(doc, EFrameworkCore.Schemas.Address);
-  //   check(accountId, String);
-  //   EFrameworkCore.Collections.Accounts.update({
-  //     "_id": accountId,
-  //     "profile.addressBook._id": doc._id
-  //   }, {
-  //     $pull: {
-  //       "profile.addressBook": {
-  //         _id: doc._id
-  //       }
-  //     }
-  //   });
-  //   return doc;
-  // },
+	/**
+	* @function accounts/addressBookUpdate
+	* @summary Actualiza una address existente en el profile del usuario
+	* @param {Account} doc - objeto account con información de nueva address
+	* @param {String} accountId - id de la cuenta
+	* @return {String} return Mongo update result
+	*/
+	"accounts/addressBookUpdate": function (doc, accountId) {
+		this.unblock();
+		check(doc, EFrameworkCore.Schemas.Address);
+		check(accountId, String);
+		if (doc.isShippingDefault || doc.isBillingDefault) {
+			if (doc.isShippingDefault) {
+				EFrameworkCore.Collections.Accounts.update({
+					"_id": accountId,
+					"profile.addressBook.isShippingDefault": true
+				},
+				{
+				$set: {
+				"profile.addressBook.$.isShippingDefault": false
+				}
+				});
+			}
+			if (doc.isBillingDefault) {
+				EFrameworkCore.Collections.Accounts.update({
+					"_id": accountId,
+					"profile.addressBook.isBillingDefault": true
+				},
+				{
+					$set: {
+						"profile.addressBook.$.isBillingDefault": false
+					}
+				});
+			}
+		}
+		return EFrameworkCore.Collections.Accounts.update({
+			"_id": accountId,
+			"profile.addressBook._id": doc._id
+		},
+		{
+			$set: {
+				"profile.addressBook.$": doc
+			}
+		});
+	},
+
+	/**
+	* @function accounts/addressBookRemove
+	* @summary Verifica si el usuario tiene password
+	* @param {Account} doc - account que se eliminará
+	* @param {String} accountId - id del account
+	* @return {String} return Mongo update result
+	*/
+	"accounts/addressBookRemove": function (doc, accountId) {
+		this.unblock();
+		check(doc, EFrameworkCore.Schemas.Address);
+		check(accountId, String);
+		return EFrameworkCore.Collections.Accounts.update({
+			"_id": accountId,
+			"profile.addressBook._id": doc._id
+		},
+		{
+			$pull: {
+				"profile.addressBook": { _id: doc._id }
+			}
+		});
+	},
 
   // /*
   //  * invite new admin users
@@ -352,6 +365,7 @@ Meteor.methods({
 	* @param {String} [group] Optional name of group to restrict roles to.
 	*                         User"s Roles.GLOBAL_GROUP will also be checked.
 	* @returns {Boolean} success/failure
+	* @todo all
 	*/
 	"accounts/addUserPermissions": function (userId, permissions, group) {
 		check(userId, Match.OneOf(String, Array));
@@ -386,18 +400,24 @@ Meteor.methods({
 		}
 	},
 
-  /*
-   * accounts/setUserPermissions
-   */
-  "accounts/setUserPermissions": function (userId, permissions, group) {
-    check(userId, String);
-    check(permissions, Match.OneOf(String, Array));
-    check(group, Match.Optional(String));
-    this.unblock();
-    try {
-      return Roles.setUserRoles(userId, permissions, group);
-    } catch (error) {
-      return EFrameworkCore.Log.info(error);
-    }
-  }
+   /**
+	* accounts/setUserPermissions
+	* @summary Establecer permiso
+	* @param {String} userId
+	* @param {Array|String} permission
+	* @param {String} [group]
+	* @returns {}
+	*/
+	"accounts/setUserPermissions": function (userId, permissions, group) {
+		check(userId, String);
+		check(permissions, Match.OneOf(String, Array));
+		check(group, Match.Optional(String));
+		this.unblock();
+		try {
+			return Roles.setUserRoles(userId, permissions, group);
+		}
+		catch (error) {
+			return EFrameworkCore.Log.info(error);
+		}
+	}
 });
