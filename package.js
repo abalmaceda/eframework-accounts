@@ -31,6 +31,11 @@ Package.onUse(function (api) {
 	api.use("random");
 	api.use("reactive-var");
 	api.use("reactive-dict");
+
+	/*
+	* @summary Encrypt account secrets stored in the database
+	* @see {@link https://atmospherejs.com/meteor/oauth-encryption|ATMOSPHERE}
+	*/
 	api.use("oauth-encryption");
 	api.use("accounts-base");
 	api.use("accounts-password");

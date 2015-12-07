@@ -7,8 +7,11 @@
 
 <!-- TODO -->
 <template name="accountsDashboard">
-	<!-- contenFor es una función de router-iron -->
-	<!-- TODO: entender como funciona esto. Saber de donde sale ""-->
+	<!--
+		contenFor es una función de router-iron
+		Rendering Templates into Regions using contentFor.
+		Mas información : http://iron-meteor.github.io/iron-router/#rendering-templates-into-regions-using-contentfor
+	-->
 	{{> contentFor region="dashboardControls" template="accountsDashboardControls"}}
 	<div class="container-fluid-sm">
 		<div class="panel panel-default">
