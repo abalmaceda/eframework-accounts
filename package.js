@@ -5,9 +5,31 @@ Package.describe({
 	git: ""
 });
 
+
+/**
+ * @summary Define dependencies and expose package methods
+ * @param {function} A function that takes in the package control api object, which keeps track of dependencies and exports.
+ * @description Esta función es parte del API de Meteor
+ * @see {@link http://docs.meteor.com/#/full/packagedescription|METEOR}
+ * @todo Documentar
+ */
 Package.onUse(function (api) {
+
+	/**
+	 * @summary Use versions of core packages from a release.
+	 * @description Esta función es parte del API de Meteor
+	 * @see {@link http://docs.meteor.com/#/full/pack_versions|METEOR}
+	 * @todo Documentar
+	 */
 	api.versionsFrom("METEOR@1.2");
 
+	/**
+	 * @summary Depend on package packagename.
+	 * @param {String|Strings[]} A function that takes in the package control api object, which keeps track of dependencies and exports.
+	 * @description Esta función es parte del API de Meteor
+	 * @see {@link http://docs.meteor.com/#/full/pack_versions|METEOR}
+	 * @todo Documentar
+	 */
 	// meteor base packages
 	api.use("standard-minifiers");
 	api.use("mobile-experience");
@@ -48,7 +70,8 @@ Package.onUse(function (api) {
 	api.use("accounts-weibo");
 	api.use("eframework:eframework-core");
 
-  // // Files
+
+  // Files
   api.addFiles("common/schemas/accounts.js");
 
   // // accounts
