@@ -36,6 +36,7 @@ Template.addressBook.onCreated(function () {
 	}
 });
 
+//Estaba comentada desde antes
 // // Template.addressBook.onRendered(function () {
 // //   let view = this.$("[blaze-view="addressBook"]").get(0);
 // // });
