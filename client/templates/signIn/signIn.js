@@ -67,7 +67,7 @@ Template.loginFormSignInView.events({
 		}
 
 		if (validatedPassword !== true) {
-			errors.password = validatedPassword.reason;
+			errors.password = validatedPassword;
 		}
 
 		if ($.isEmptyObject(errors) === false) {

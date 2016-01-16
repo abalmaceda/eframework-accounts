@@ -41,8 +41,10 @@
 
 				{{#if hasError messages.errors.password}}
 					<span class="help-block">
-					{{messages.errors.password}}
-				</span>
+						{{#each messages.errors.password}}
+							<p>{{reason}}</p>
+						{{/each}}
+					</span>
 				{{/if}}
 			</div>
 
