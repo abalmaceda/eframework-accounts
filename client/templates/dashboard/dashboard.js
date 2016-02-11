@@ -21,7 +21,7 @@ Template.accountsDashboardControls.events({
  */
 Template.accountsDashboard.helpers({
 	/**
-	 * isShopMember
+	 * @function isShopMember
 	 * @summary Veririca que se tenga permisos de Dashboard|Administrator|Owner
 	 * @returns {Boolean} True is el miembro es un administrador
 	 * @todo Documentar
@@ -35,7 +35,7 @@ Template.accountsDashboard.helpers({
 	},
 
 	/**
-	 * isShopGuest
+	 * @function isShopGuest
 	 * @summary Veririca que no se tenga permisos de Dashboard|Administrator|Owner
 	 * @returns {Boolean}
 	 * @todo Documentar
@@ -49,7 +49,7 @@ Template.accountsDashboard.helpers({
 	},
 
 	/**
-	* members
+	* @function members
 	* @summary
 	* @return {Boolean} True if the memnber is an administrator
 	* @todo Documentar y entender

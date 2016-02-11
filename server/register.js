@@ -1,5 +1,7 @@
-/* TODO: entender codigo */
-
+/**
+ * @summary
+ * @todo Documentar
+ */
 EFrameworkCore.registerPackage({
   label: "Accounts",
   name: "eframework-accounts",
