@@ -87,7 +87,10 @@ AutoForm.hooks({
 			this.event.preventDefault();
 			let accountId;
 			let addressBook = $(this.template.firstNode).closest(".address-book");
-			let account = EFrameworkCore.Collections.Accounts.findOne();
+			//let account = EFrameworkCore.Collections.Accounts.findOne();
+			let account = EFrameworkCore.Collections.Accounts.findOne({
+				userId: Meteor.userId()
+			});
 			accountId = account._id;
 
 			if (!insertDoc._id) {
@@ -95,7 +98,14 @@ AutoForm.hooks({
 			}
 
 			try {
-				Meteor.call("accounts/addressBookAdd", insertDoc, accountId);
+				Meteor.call("accounts/addressBookAdd", insertDoc, accountId, function(error, result) {
+				if(error){
+					// TODO: Mostrar mensaje de error
+				}
+				else{
+
+				}
+			});
 			}
 			catch (error) {
 				this.done(new Error("Failed to add address", error));
