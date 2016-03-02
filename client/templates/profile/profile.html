@@ -2,15 +2,21 @@
 <template name="accountProfile">
 	<div class="flex flex-column flex-align-center flex-2x container-lg">
 		<div class="flex-item">
-			<div class="panel panel-lg">
-				<div class="panel-heading  panel-title-center">
+			<!-- <div class="panel panel-lg"> -->
+			<div class="panel panel-primary">
+				<!-- <div class="panel-heading  panel-title-center"> -->
+				<div class="panel-heading">
+					<h2 class="panel-title">Update Password</h2>
+				<!--
 					<div class="profile-image">
-						<!-- Avatar : Consolidated Avatar Template Package for Meteor  -->
-						<!-- Para mas detalles  : https://atmospherejs.com/utilities/avatar -->
+						 Avatar : Consolidated Avatar Template Package for Meteor
+						 Para mas detalles  : https://atmospherejs.com/utilities/avatar
 						{{> avatar user=currentUser class="circular-icon" size="large" shape="circle"}}
 						<span class="profile-image-display-name">{{displayName}}</span>
 					</div>
+				-->
 				</div>
+
 
 				<div class="panel-content">
 				<!-- Si el usuario tiene password entonces le damos la opcion de cambiarlo-->
@@ -21,22 +27,23 @@
 			</div>
 		</div>
 
+		<!--
 		<div class="flex-item">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Orders</h3>
 				</div>
 
-				<!--
+
 					Agrega template dashboardOrdersList para mostrar todas las orders que el usuario tiene
 					Se le pasa como parametro userOders
-				-->
+
 				<div class="panel-content">
 					{{> dashboardOrdersList data=userOrders}}
 				</div>
 			</div>
 		</div>
-
+		-->
 		<div class="flex-item">
 			{{> addressBookPanel}}
 		</div>

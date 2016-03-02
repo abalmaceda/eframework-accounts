@@ -193,5 +193,16 @@ Template.loginFormChangePassword.events({
 				templateInstance.formMessages.set({ info: [{ reason: i18n.t("accountsUI.info.passwordChanged") }] });
 			}
 		});
+	},
+
+	"click [data-event-action=change-password-clean]": function (event, template) {
+		event.preventDefault();
+		event.stopPropagation();
+
+		let oldPasswordInput = template.$(".login-input--oldPassword");
+		let passwordInput = template.$(".login-input--password");
+
+		oldPasswordInput[0].value = "";
+		passwordInput[0].value = "";
 	}
 });

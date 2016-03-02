@@ -25,7 +25,9 @@ Template.addressBookGrid.helpers({
 
 	/**
 	* @function selectedShipping
-	* @summary Verifica si
+	* @summary Retorna la Class active si corresponde la url es el shipping seleccionado
+	* @description Se verifica que la dirección "this" sea la seleccionada para shipping. De serlo, se devuelve la clase CSS para agregar feedback al usuario
+	* @this corresponde al template que contiene la actual dirección
 	* @return {String}
 	*/
 	selectedShipping: function () {
@@ -45,8 +47,8 @@ Template.addressBookGrid.helpers({
 
 	/**
 	* @function account
-	* @summary Verifica si
-	* @return {String}
+	* @summary Obtine el Cursor del  Collection.Account del usuario actual.
+	* @return {Collection.Cursor} Cursor Con objeto Account del usuario actual
 	*/
 	account: function () {
 		return EFrameworkCore.Collections.Accounts.findOne({
