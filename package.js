@@ -114,8 +114,8 @@ Package.onUse(function (api) {
   api.addFiles("client/templates/profile/profile.js", "client");
 
   // // Address Book
-	api.addFiles("client/templates/addressBook/addressBook.html", "client");
-	api.addFiles("client/templates/addressBook/addressBook.js", "client");
+	api.addFiles("client/templates/addressBook/addressBookPanel.html", "client");
+	api.addFiles("client/templates/addressBook/addressBookPanel.js", "client");
 
 	api.addFiles("client/templates/addressBook/add/addressBookAdd.html", "client");
 	api.addFiles("client/templates/addressBook/add/addressBookAdd.js", "client");

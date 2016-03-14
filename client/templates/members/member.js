@@ -45,15 +45,32 @@ Template.memberSettings.helpers({
 
 	/**
 	* hasPermissionChecked
-	* @summary
-	* @params {String} permission - permission
-	* @params {String} userId - userId
-	* @return {String} CSS class
+	* @summary Verifica si el usuario tiene el permiso y retorna una clase CSS en caso afirmativo
+	* @params {String} permission - permiso a consultar
+	* @params {String} userId - userId del usuario a consultar
+	* @return {String} CSS class en caso de tener el permiso
 	* @todo Documentar y Entender
 	*/
 	hasPermissionChecked: function(permission, userId) {
 		if (userId && (Roles.userIsInRole(userId, permission, this.shopId || Roles.userIsInRole(userId, permission, Roles.GLOBAL_GROUP)))) {
-			return "checked";
+			return "text-primary checked";
+		}
+	},
+
+	/**
+	* hasPermissionChecked
+	* @summary Verifica si el usuario tiene el permiso y retorna una clase CSS en caso afirmativo
+	* @params {String} permission - permiso a consultar
+	* @params {String} userId - userId del usuario a consultar
+	* @return {String} CSS class en caso de tener el permiso
+	* @todo Documentar y Entender
+	*/
+	hasPermissionCheckedIcon: function(permission, userId) {
+		if (userId && (Roles.userIsInRole(userId, permission, this.shopId || Roles.userIsInRole(userId, permission, Roles.GLOBAL_GROUP)))) {
+			return "fa-check-square-o";
+		}
+		else{
+			return "fa-square-o";
 		}
 	},
 	/**
@@ -178,7 +195,7 @@ Template.memberSettings.events({
 	* @return {Boolean} True si tiene mas de un permiso
 	* @todo Aun no distintgo la diferencia entre "template.data" y "this"
 	*/
-	"change [data-event-action=toggleMemberPermission]": function(event, template) {
+	"click [data-event-action=toggleMemberPermission]": function(event, template) {
 		let member, permissions, self;
 		self = this;
 		permissions = [];
@@ -199,10 +216,13 @@ Template.memberSettings.events({
 		}
 
 		/*Dependiendo del estado actual del botón es la acción que debo realizar*/
-		if ($(event.currentTarget).is(':checked')) {
+		//if ($(event.currentTarget).is(':checked')) {
+		if (!$(event.currentTarget).hasClass('checked')) {
+			//Agrego permiso al usuario
 			Meteor.call("accounts/addUserPermissions", member.userId, permissions, self.shopId);
 		}
 		else {
+			//Elimino permiso
 			Meteor.call("accounts/removeUserPermissions", member.userId, permissions, self.shopId);
 		}
 	},

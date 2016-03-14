@@ -5,9 +5,13 @@
 //  * addressBookView (view)
 //  */
 
+//Creo una variable reactiva para guardar los Templates (strings).
+let _currentViewTemplate = ReactiveVar("addressBookAdd");
+//Crea una variable reactiva para guardar los datos de adress
+let _templateData = ReactiveVar({});
 
 /**
- * Template.addressBook.onCreated
+ * Template.addressBookPanel.onCreated
  * @summary Creo una variable reactiva con los address para utilizar en todo el Template
  */
 Template.addressBook.onCreated(function () {
@@ -15,16 +19,14 @@ Template.addressBook.onCreated(function () {
 	let account = EFrameworkCore.Collections.Accounts.findOne({
 		userId: Meteor.userId()
 	});
-	//Creo una variable reactiva para guardar los Templates (strings).
-	this.currentViewTemplate = ReactiveVar("addressBookAdd");
-	//Crea una variable reactiva para guardar los datos de adress
-	this.templateData = ReactiveVar({});
+
+
 	if (account){
 		if (account.profile){
 			if (account.profile.addressBook){
 				if (account.profile.addressBook.length > 0) {
 					// Si tiene al menos un address se agrega pone el template "addressBookGrid"
-					this.currentViewTemplate.set("addressBookGrid");
+					_currentViewTemplate.set("addressBookGrid");
 
 					// TODO: make this more bullet proof
 					// Assume that if we"re seeing the address book grid
@@ -66,7 +68,7 @@ Template.addressBook.helpers({
 	* @todo all
 	*/
 	data: function () {
-		return Template.instance().templateData.get();
+		return _templateData.get();
 	},
 
 	/**
@@ -75,7 +77,7 @@ Template.addressBook.helpers({
 	* @return {String} opciones :  "addressBookGrid" | "addressBookEdit" | "addressBookAdd"
 	*/
 	currentView: function () {
-		return Template.instance().currentViewTemplate.get();
+		return _currentViewTemplate.get();
 	},
 
 	/**
@@ -91,10 +93,31 @@ Template.addressBook.helpers({
 });
 
  /**
+ * Template.addressBookPanel.helpers
+ * @summary Helpers para Template.addressBookPanel
+ */
+Template.addressBookPanel.helpers({
+	/**
+	* @function currentView
+	* @summary Retorna un String que representa el actual Template que se esta utilizando
+	* @return {String} opciones :  "addressBookGrid" | "addressBookEdit" | "addressBookAdd"
+	*/
+	showAddButton: function () {
+		return _currentViewTemplate.get() === "addressBookGrid" ;
+	}
+});
+
+ /**
  * Template.addressBook.events
  * @summary Events para Template.addressBook
  */
-Template.addressBook.events({
+
+
+  /**
+ * Template.addressBook.events
+ * @summary Events para Template.addressBook
+ */
+Template.addressBookPanel.events({
 
 	/**
 	* @event click [data-event-action=addNewAddress]
@@ -106,8 +129,25 @@ Template.addressBook.events({
 		event.preventDefault();
 		event.stopPropagation();
 
-		Template.instance().currentViewTemplate.set("addressBookAdd");
-	},
+		_currentViewTemplate.set("addressBookAdd");
+	}
+});
+
+Template.addressBook.events({
+
+	/**
+	* @event click [data-event-action=addNewAddress]
+	* @summary Abre el formulario para creación de address
+	* @param {} event -
+	* @return {void}
+	* @deprecated
+	*/
+	// "click [data-event-action=addNewAddress]": function (event) {
+	// 	event.preventDefault();
+	// 	event.stopPropagation();
+
+	// 	_currentViewTemplate.set("addressBookAdd");
+	// },
 
 	/**
 	* @event click [data-event-action=editAddress]
@@ -119,8 +159,8 @@ Template.addressBook.events({
 		event.preventDefault();
 		event.stopPropagation();
 
-		Template.instance().templateData.set({ address: this });
-		Template.instance().currentViewTemplate.set("addressBookEdit");
+		_templateData.set({ address: this });
+		_currentViewTemplate.set("addressBookEdit");
 	},
 
 	/**
@@ -146,7 +186,7 @@ Template.addressBook.events({
 			if (account) {
 				if (account.profile) {
 					if (account.profile.addressBook.length < 1) {
-						template.currentViewTemplate.set("addressBookAdd");
+						_currentViewTemplate.set("addressBookAdd");
 					}
 				}
 			}
@@ -163,6 +203,6 @@ Template.addressBook.events({
 		event.preventDefault();
 		event.stopPropagation();
 
-		Template.instance().currentViewTemplate.set("addressBookGrid");
+		_currentViewTemplate.set("addressBookGrid");
 	}
 });

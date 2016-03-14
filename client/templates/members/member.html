@@ -15,7 +15,7 @@
 	</div>
 </template>
 
-<!-- Patalla que muestra las opciones que se le permitiran a los diferentes usuarios. -->
+<!-- Pantalla de edición de permisos de usuarios. -->
 <template name="memberSettings">
 	<div class="panel">
 		<div class="panel-heading panel-title-center">
@@ -29,10 +29,11 @@
 		</div>
 	</div>
 	{{#each groupsForUser}}
+		<!--
 		<div class="panel-body">
-			<h3><i class="fa fa-shopping-bag"></i> {{shopLabel}}</h3>
-			<!-- <h3><i class="fa fa-shopping-cart"></i> {{shopLabel}}</h3> -->
+			<h3><i class="fa fa-shopping-cart"></i> {{shopLabel}}</h3>
 		</div>
+		-->
 		<div class="panel-group shop-member-groups">
 			{{#each permissionGroups}}
 				<div class="panel panel-default">
@@ -49,7 +50,13 @@
 								Template.parentData(2) == {{../..}}
 								Por lo tanto {{../../userId}}, es la variable que tiene el padre de mi padre ( mi abuelo)
  							-->
-							<input type="checkbox" class="checkbox-switch" id="permissions-{{name}}-{{../../userId}}" data-userId="{{../../userId}}" data-permission="{{name}}" {{hasPermissionChecked name ../../userId}} {{isOwnerDisabled ../../userId}} data-event-action="toggleMemberPermission"/>
+ 							<!--
+								<input type="checkbox" class="checkbox-switch" id="permissions-{{name}}-{{../../userId}}" data-userId="{{../../userId}}" data-permission="{{name}}" {{hasPermissionChecked name ../../userId}} {{isOwnerDisabled ../../userId}} data-event-action="toggleMemberPermission"/>
+							-->
+
+							<span  id="permissions-{{name}}-{{../../userId}}" data-userId="{{../../userId}}" data-permission="{{name}}" class="{{hasPermissionChecked name ../../userId}}" {{isOwnerDisabled ../../userId}} data-event-action="toggleMemberPermission">
+								<i class="fa {{hasPermissionCheckedIcon name ../../userId}} fa-3x"></i>
+							</span>
 						</div>
 					</div>
 					{{#if hasManyPermissions permissions}}
@@ -63,7 +70,12 @@
 										</label>
 									</div>
 									<div class="flex-item-static">
+										<!--
 										<input class="checkbox-switch" id="sub-permissions-{{name}}-{{../../userId}}" type="checkbox" data-userId="{{../../../userId}}" data-permission="{{permission}}" {{hasPermissionChecked permission ../../../userId}} {{isOwnerDisabled ../../../userId}} data-event-action="toggleMemberPermission"/>
+										-->
+										<span  id="sub-permissions-{{name}}-{{../../userId}}" data-userId="{{../../../userId}}" data-permission="{{permission}}" class="{{hasPermissionChecked permission ../../../userId}}" {{isOwnerDisabled ../../userId}} data-event-action="toggleMemberPermission">
+											<i class="fa {{hasPermissionCheckedIcon permission ../../../userId}} fa-2x"></i>
+										</span>
 									</div>
 								</li>
 							{{/each}}

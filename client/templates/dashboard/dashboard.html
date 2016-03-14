@@ -13,34 +13,38 @@
 		Mas información : http://iron-meteor.github.io/iron-router/#rendering-templates-into-regions-using-contentfor
 	-->
 	{{> contentFor region="dashboardControls" template="accountsDashboardControls"}}
-	<div class="container-fluid-sm">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Shop Members</h3>
+	<div class="container-fluid-sm flex flex-column flex-align-center container-lg">
+		<div class="flex-item">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Shop Members</h3>
+				</div>
+				<ul class="list-group">
+					{{#each members}}
+						{{#if isShopMember}}
+							<li class="list-group-item flex">
+								{{> member}}
+							</li>
+						{{/if}}
+					{{/each}}
+				</ul>
 			</div>
-			<ul class="list-group">
-				{{#each members}}
-					{{#if isShopMember}}
+		</div>
+		<div class="flex-item">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Guests</h3>
+				</div>
+				<ul class="list-group">
+					{{#each members}}
+						{{#if isShopGuest}}
 						<li class="list-group-item flex">
 							{{> member}}
 						</li>
-					{{/if}}
-				{{/each}}
-			</ul>
-		</div>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Guests</h3>
+						{{/if}}
+					{{/each}}
+				</ul>
 			</div>
-			<ul class="list-group">
-				{{#each members}}
-					{{#if isShopGuest}}
-					<li class="list-group-item flex">
-						{{> member}}
-					</li>
-					{{/if}}
-				{{/each}}
-			</ul>
 		</div>
 	</div>
 </template>
