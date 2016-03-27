@@ -5,7 +5,7 @@
 EFrameworkCore.registerPackage({
   label: "Accounts",
   name: "eframework-accounts",
-  icon: "fa fa-sign-in",
+  icon: "fa fa-users",
   autoEnable: true,
   registry: [
     {
@@ -13,7 +13,7 @@ EFrameworkCore.registerPackage({
       provides: "dashboard",
       label: "Accounts",
       description: "Manage how members sign into your shop.",
-      icon: "fa fa-sign-in",
+      icon: "fa fa-users",
       cycle: 3,
       container: "accounts"
     },
