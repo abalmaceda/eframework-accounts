@@ -17,17 +17,20 @@
 					</li>
 				</ul>
 			-->
-			<div>
-				<h2 class="panel-title">Address Book</h2>
+			<ul class="nav nav-pills">
+				<li >
+					<h2 class="panel-title">Address Book</h2>
+				</li>
+				<li class="navbar-right">
+					{{#if showAddButton}}
+						<button class="btn btn-info" type="button" data-event-action="addNewAddress">
+							<i class="fa fa-plus fa-lg address-icons"></i>
+							<!-- <span data-i18n="addressBookGrid.addAddress">Add Address</span> -->
+						</button>
+					{{/if}}
+				</li>
 
-			{{#if showAddButton}}
-				<button class="btn btn-info" type="button" data-event-action="addNewAddress">
-					<i class="fa fa-plus fa-lg address-icons"></i>
-					<!-- <span data-i18n="addressBookGrid.addAddress">Add Address</span> -->
-				</button>
-			{{/if}}
-
-			</div>
+			</ul>
 
 		</div>
 		{{> addressBook address=address}}

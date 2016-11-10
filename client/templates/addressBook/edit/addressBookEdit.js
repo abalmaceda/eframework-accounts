@@ -37,29 +37,29 @@ AutoForm.hooks({
 
 		this.event.preventDefault();
 
-		var addressBook = $(this.template.firstNode).closest('.address-book');
-		var accountId = EFrameworkCore.Collections.Accounts.findOne()._id;
-		var error;
+			var addressBook = $(this.template.firstNode).closest('.address-book');
+			var accountId = EFrameworkCore.Collections.Accounts.findOne()._id;
+			var error;
 
-		try {
-			Meteor.call("accounts/addressBookUpdate", insertDoc, accountId, function(error, result) {
-				if(error){
-					// TODO: Mostrar mensaje de error
-				}
-			});
-		}
-		catch (_error) {
-			error = _error;
-			//para sincronizar
-			this.done(new Error(error));
-			//is equivalent to calling this.event.preventDefault() and this.event.stopPropagation()
-			return false;
-		}
-		//Para sincronizar
-		this.done();
+			try {
+				Meteor.call("accounts/addressBookUpdate", insertDoc, accountId, function(error, result) {
+					if(error){
+						// TODO: Mostrar mensaje de error
+					}
+				});
+			}
+			catch (_error) {
+				error = _error;
+				//para sincronizar
+				this.done(new Error(error));
+				//is equivalent to calling this.event.preventDefault() and this.event.stopPropagation()
+				return false;
+			}
+			//Para sincronizar
+			this.done();
 
-		// Mostrar addressBookGrid
-		addressBook.trigger($.Event('showMainView'));
+			// Mostrar addressBookGrid
+			addressBook.trigger($.Event('showMainView'));
 
 		}
 	}

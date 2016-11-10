@@ -1,7 +1,7 @@
 <!-- Teamplate cuando se tiene al menos un address-->
 <template name="addressBookGrid">
 	{{#with account.profile}}
-
+<!-- TODO: Solo para sacar imagenes
 		<div class="panel-control-bar">
 			<div class="panel-controls">
 				<button class="btn btn-default" type="button" data-event-action="addNewAddress">
@@ -10,16 +10,18 @@
 				</button>
 			</div>
 		</div>
-
+-->
 		<div class="panel-body">
 			<div class="address-list">
 				<div class="address-list-header">
 					<div class="address-list-heading">
 						<h4 data-i18n="addressBookGrid.selectShippingAddress">Select a shipping address</h4>
 					</div>
+					<!--
 					<div class="address-list-heading">
 						<h4 id="billing-address-label" data-i18n="addressBookGrid.selectBillingAddress">Select a billing address</h4>
 					</div>
+					-->
 					<div class="address-list-heading-blank"></div>
 				</div>
 				<!-- Se agregan todas las address-->
@@ -34,6 +36,7 @@
 							{{phone}}
 							</address>
 						</div>
+						<!--
 						<div class="address {{selectedBilling}}" data-event-action="selectBillingAddress">
 							<strong>{{fullName}}</strong>
 							<address>
@@ -43,6 +46,7 @@
 								{{phone}}
 							</address>
 						</div>
+						-->
 						<div class="controls">
 							<button type="button" class="btn btn-default" data-id="{{_id}}" data-event-action="editAddress">
 								<i class="fa fa-pencil"></i>
